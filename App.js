@@ -15,6 +15,7 @@ import ScanScreen from './src/QRCodeScanner';
 const Stack = createStackNavigator();
 // Screen이라는 프로퍼티를 리턴할때 스크린 컴포넌트를 명시해주는데 네비게이션 props을 각각의 스크린 컴포넌트에 넘겨주게 된다.
 // 따라서 this.props.navigation을 사용가능하게 해준다.
+const AuthStack = createStackNavigator();
 
 // 스크린에서 스크린으로 데이터를 보내는 것 : 파라미터를 루트로 패싱한다.
 const App = () => {

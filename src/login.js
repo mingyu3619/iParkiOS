@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react';
-import {View, Text, StyleSheet, Button, TextInput} from 'react-native';
+import {View, Text, StyleSheet, Button, TextInput, Alert} from 'react-native';
 
 const LoginScreen = ({navigation}) => {
   const [userEmail, setUserEmail] = useState('');
@@ -31,7 +31,11 @@ const LoginScreen = ({navigation}) => {
           color="white"
           title="Login"
           style={styles.LoginButton}
-          onPress={() => navigation.navigate('Home')}
+          onPress={() =>
+            userEmail === 'user@user.com' && userPassword === '1234'
+              ? navigation.navigate('Home')
+              : Alert.alert('잘못된 입력입니다.')
+          }
         />
         <Button
           color="white"
