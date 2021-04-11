@@ -12,8 +12,8 @@ target 'iPark' do
     :hermes_enabled => false
   )
   
-  permissions_path = '../node_modules/react-native-permissions/ios'
-  pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
+  #permissions_path = '../node_modules/react-native-permissions/ios'
+  #pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
 
   target 'iParkTests' do
     inherit! :complete

@@ -10,7 +10,7 @@ import UserScreen from './src/user';
 import LogoTitle from './src/logo';
 import LoginScreen from './src/login';
 import AdminScreen from './src/admin';
-// import QrCodeScanner from './src/QRCodeScanner';
+import ScanScreen from './src/QRCodeScanner';
 
 const Stack = createStackNavigator();
 // Screen이라는 프로퍼티를 리턴할때 스크린 컴포넌트를 명시해주는데 네비게이션 props을 각각의 스크린 컴포넌트에 넘겨주게 된다.
@@ -32,9 +32,13 @@ const App = () => {
             color: 'white',
           },
         }}>
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{headerShown: false}}
+        />
         <Stack.Screen name="admin" component={AdminScreen} />
-        {/* <Stack.Screen name="QrCode" component={QrCodeScanner} /> */}
+        {/* <Stack.Screen name="ScanScreen" component={ScanScreen} /> */}
         <Stack.Screen
           name="Home"
           component={HomeScreen}

@@ -22,8 +22,8 @@ const HomeScreen = () => {
   useEffect(() => {
     try {
       fetch(API_URL)
-        .then((response) => response.json())
-        .then((data) => {
+        .then(response => response.json())
+        .then(data => {
           setUsers(data);
           setLoading(false);
         });
@@ -42,7 +42,6 @@ const HomeScreen = () => {
   } else {
     return (
       <SafeAreaView style={styles.container}>
-        {/* <Text style={styles.appTitle}>How many</Text> */}
         <View style={styles.content}>
           <Text>
             {'\n'}현재 사용자 목록{'\n'}
@@ -52,7 +51,7 @@ const HomeScreen = () => {
             현재 {users.length} 명 사용중 {'\n'}
           </Text>
           <ScrollView style={styles.scrollView}>
-            {users.map((user) => (
+            {users.map(user => (
               <View key={user.student_num}>
                 <View style={styles.elem}>
                   <View style={styles.memberName}>
@@ -69,6 +68,8 @@ const HomeScreen = () => {
           </ScrollView>
           <View>
             <Button
+              style={styles.ButtonStyle}
+              color="black"
               title="QR Code"
               onPress={() => Alert.alert('Hello Wolrd')}
             />
@@ -100,6 +101,7 @@ const styles = StyleSheet.create({
   footer: {
     height: 60,
     backgroundColor: '#A33B39',
+    marginTop: 20,
   },
   elem: {
     width: '100%',
@@ -125,7 +127,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingVertical: 20,
     paddingLeft: 20,
-    marginBottom: 100,
+    marginBottom: 20,
   },
   appTitle: {
     color: '#fff',

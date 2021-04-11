@@ -14,7 +14,7 @@ const LoginScreen = ({navigation}) => {
       <TextInput
         style={styles.input}
         value={userEmail}
-        onChangeText={(userEmail) => setUserEmail(userEmail)}
+        onChangeText={userEmail => setUserEmail(userEmail)}
         placeholder="Email"
         autoCapitalize="none"
         keyboardType={'email-address'}
@@ -22,17 +22,19 @@ const LoginScreen = ({navigation}) => {
       <TextInput
         style={styles.input}
         value={userPassword}
-        onChangeText={(userPassword) => setUserPassword(userPassword)}
+        onChangeText={userPassword => setUserPassword(userPassword)}
         placeholder="Password"
         secureTextEntry="True"
       />
       <View style={styles.buttonContainer}>
         <Button
+          color="white"
           title="Login"
           style={styles.LoginButton}
           onPress={() => navigation.navigate('Home')}
         />
         <Button
+          color="white"
           title="Admin Login"
           style={styles.LoginButton}
           onPress={() => navigation.navigate('admin')}
