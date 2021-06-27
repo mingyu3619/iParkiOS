@@ -1,0 +1,154 @@
+{
+  "project_info": {
+    "project_number": "948413181622",
+    "project_id": "howmany-5756e",
+    "storage_bucket": "howmany-5756e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948413181622:android:e3e5d19ae65b4eadf28017",
+        "android_client_info": {
+          "package_name": "com.ipark"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948413181622-fuaso7trouk8t1qs3239oc7diqgs6h1o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ipark",
+            "certificate_hash": "9e95792b955ed80820dea32c705150287bfa196b"
+          }
+        },
+        {
+          "client_id": "948413181622-mr8bu580kf2c9mp7ad0u489aknr0noif.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ipark",
+            "certificate_hash": "2522cbf934b693305a69db8ef4a40b231cd600c7"
+          }
+        },
+        {
+          "client_id": "948413181622-q9k0qqjgvvgm2gqlss92971fj5dq8s8m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ipark",
+            "certificate_hash": "610cab8d466ee17cf174f1dcfdc4d28c05c435fc"
+          }
+        },
+        {
+          "client_id": "948413181622-v6g7ck4k9gkgg1bb3552hjb3j9nogc4p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ipark",
+            "certificate_hash": "e0baabfa87c7be11007bea8745466c5ef138901e"
+          }
+        },
+        {
+          "client_id": "948413181622-md1rtcisch7fbo7423gveaa5rrr6dag8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUkhdbKY-dFwm2f0LmM1amfBTLkofGw7Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948413181622-md1rtcisch7fbo7423gveaa5rrr6dag8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "948413181622-86e8aoemlu6t8trlmcpk6mjnib0rehao.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ku.howmany"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948413181622:android:450c31d3fb264832f28017",
+        "android_client_info": {
+          "package_name": "com.ipark"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948413181622-5evvldakd5d6evdrqts6eemijhtu92c0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ipark",
+            "certificate_hash": "9e95792b955ed80820dea32c705150287bfa196b"
+          }
+        },
+        {
+          "client_id": "948413181622-8m56t7q3mvgg098ep5fnrhhg4fd1849i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ipark",
+            "certificate_hash": "2d9e4da778c78a7383ff1d2e80cb8ef500eee73e"
+          }
+        },
+        {
+          "client_id": "948413181622-bcu3leb08q61m1av27chfff7417o8cud.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ipark",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "948413181622-k3k9ubime03ah1t39sl1oetsmrun4apd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ipark",
+            "certificate_hash": "727076c0942704fa9652aadadae5be0d7c81646a"
+          }
+        },
+        {
+          "client_id": "948413181622-lqclv2n37e86c3maovh8qusr9gq0hgq6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ipark",
+            "certificate_hash": "831e02d9b0525018030a3735f398ebe7dd2f9c46"
+          }
+        },
+        {
+          "client_id": "948413181622-md1rtcisch7fbo7423gveaa5rrr6dag8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUkhdbKY-dFwm2f0LmM1amfBTLkofGw7Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948413181622-md1rtcisch7fbo7423gveaa5rrr6dag8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "948413181622-86e8aoemlu6t8trlmcpk6mjnib0rehao.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ku.howmany"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -17,6 +17,8 @@ target 'iPark' do
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera/Permission-Camera.podspec"
   
   
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
   target 'iParkTests' do
     inherit! :complete
     # Pods for testing
