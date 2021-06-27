@@ -12,6 +12,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {baseProps} from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = ({route, navigation}) => {
   const API_URL = 'http://163.152.223.34:8000/liveData';
@@ -29,6 +30,7 @@ const HomeScreen = ({route, navigation}) => {
           setUsers(data);
           setLoading(false);
         });
+      AsyncStorage.setItem('isLogin', 'true');
     } catch (e) {
       setError(e);
     }

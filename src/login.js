@@ -1,12 +1,24 @@
 import React, {Component, useState} from 'react';
 import {View, Text, StyleSheet, Button, TextInput, Alert} from 'react-native';
 import SnsGoogleLogin from "./GoogleLogin"
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const LoginScreen = ({navigation}) => {
   const [userEmail, setUserEmail] = useState(null);
   const [userPassword, setUserPassword] = useState(null);
   //const [loading, setLoading] = useState(false);
   //const [error, setError] = useState('');
-
+  useEffect(() => {
+    logincheck();
+  }, []);
+  
+  function logincheck(){
+    AsyncStorage.getItem('isLogin').then((result)=>{
+      if(result !== 'false') {
+        navigation.reset({routes: [{name: "Home"}]})
+      }
+    })
+    }
   return (
     <View style={styles.mainView}>
       <Text style={styles.title}>IPARK QRCheckIn</Text>
@@ -34,7 +46,7 @@ const LoginScreen = ({navigation}) => {
           style={styles.LoginButton}
           onPress={() =>
             userEmail === 'user@user.com' && userPassword === '1234'
-              ? navigation.navigate('Home')
+              ? navigation.reset({routes: [{name: "Home"}]})
               : Alert.alert('잘못된 입력입니다.')
           }
         />
