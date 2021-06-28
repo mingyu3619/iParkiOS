@@ -1,6 +1,6 @@
 import React, {Component, useState} from 'react';
 import {View, Text, StyleSheet, Button, TextInput, Alert} from 'react-native';
-import SnsGoogleLogin from "./GoogleLogin"
+import SnsGoogleLogin from './GoogleLogin';
 const LoginScreen = ({navigation}) => {
   const [userEmail, setUserEmail] = useState(null);
   const [userPassword, setUserPassword] = useState(null);
@@ -11,7 +11,7 @@ const LoginScreen = ({navigation}) => {
     <View style={styles.mainView}>
       <Text style={styles.title}>IPARK QRCheckIn</Text>
       <Text>Hello Please Login First....!</Text>
-      
+
       <TextInput
         style={styles.input}
         value={userEmail}
@@ -44,12 +44,10 @@ const LoginScreen = ({navigation}) => {
           style={styles.LoginButton}
           onPress={() => navigation.navigate('admin')}
         />
-        
-    
-      <SnsGoogleLogin/>
+
+        <SnsGoogleLogin />
       </View>
     </View>
-
   );
 };
 
