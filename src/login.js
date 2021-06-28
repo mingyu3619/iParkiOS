@@ -10,41 +10,9 @@ const LoginScreen = ({navigation}) => {
   return (
     <View style={styles.mainView}>
       <Text style={styles.title}>IPARK QRCheckIn</Text>
-      <Text>Hello Please Login First....!</Text>
-
-      <TextInput
-        style={styles.input}
-        value={userEmail}
-        onChangeText={userEmail => setUserEmail(userEmail)}
-        placeholder="Email"
-        autoCapitalize="none"
-        keyboardType={'email-address'}
-      />
-      <TextInput
-        style={styles.input}
-        value={userPassword}
-        onChangeText={userPassword => setUserPassword(userPassword)}
-        placeholder="Password"
-        secureTextEntry={true}
-      />
+      <Text style={styles.text}>교내 이메일로 로그인해주세요</Text>
+      <Text style={styles.text}>Please sign in using korea univ email</Text>
       <View style={styles.buttonContainer}>
-        <Button
-          color="#000"
-          title="Login"
-          style={styles.LoginButton}
-          onPress={() =>
-            userEmail === 'user@user.com' && userPassword === '1234'
-              ? navigation.navigate('Home')
-              : Alert.alert('잘못된 입력입니다.')
-          }
-        />
-        <Button
-          color="#000"
-          title="Admin Login"
-          style={styles.LoginButton}
-          onPress={() => navigation.navigate('admin')}
-        />
-
         <SnsGoogleLogin />
       </View>
     </View>
@@ -65,6 +33,10 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     marginTop: -100,
   },
+  text: {
+    color: 'white',
+    fontSize: 16,
+  },
   input: {
     backgroundColor: '#e8e8e8',
     fontSize: 20,
@@ -77,6 +49,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'column',
     justifyContent: 'space-between',
+    margin: 30,
   },
   LoginButton: {
     backgroundColor: 'white',
