@@ -14,7 +14,9 @@ const LoginScreen = ({navigation}) => {
       <Text style={styles.text}>Please sign in using korea univ email</Text>
       <View style={styles.buttonContainer}>
         <SnsGoogleLogin />
+        <Button title="admin Login" onPress = {() => navigation.navigate('QRscan')}/>
       </View>
+
     </View>
   );
 };
