@@ -12,6 +12,8 @@ import {
   Linking,
   Alert,
   Button,
+  Image,
+  View,
 } from 'react-native';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
@@ -22,15 +24,19 @@ import {color} from 'react-native-reanimated';
 const ScanScreen = () => {
   const [email, setEmail] = useState(null); //email 담아서 fetch(post)때 쓸라고
   const [users, setUsers] = useState([]); //memberData 에서 user정보 받기 위함
+  const [photoURL, setphotoURL] = useState(null); //google 이미지
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [phone_num, setPhone_num] = useState(null);
   const [scanned, setScanned] = useState(false);
   const API_URL = 'http://163.152.223.34:8000/';
 
   const onSuccess = e => {
-    console.log('before setEmail:', e.data);
-    setEmail(e.data.replace('.ac.kr', '').toString()); //ac.kr 꼴 삭제 --> 장고에서 @korea.ac.kr 꼴 인식 못함(http://163.152.223.34:8000/MemberData/cxz3619@korea일떄나 개인 페이지 인식가능 )
+    const userInfo = JSON.parse(e.data);
+    console.log('before setEmail:', userInfo);
+    console.log('before e.data:', userInfo.email);
+    console.log('before e.data_photo:', userInfo.photo);
+    setEmail(userInfo.email.replace('.ac.kr', '').toString()); //ac.kr 꼴 삭제 --> 장고에서 @korea.ac.kr 꼴 인식 못함(http://163.152.223.34:8000/MemberData/cxz3619@korea일떄나 개인 페이지 인식가능 )
+    setphotoURL(userInfo.photo); //구글 프로필 이미지
     scanned ? setScanned(false) : setScanned(true); //큐알 인식시 state 바꿔주기
   };
   // 스캐너 초기화  부분 퍼온 코드임
@@ -45,18 +51,15 @@ const ScanScreen = () => {
 
   useEffect(() => {
     try {
-      console.log('type of email:', typeof email);
       console.log(API_URL + 'memberData/' + email.replace('"', ''));
       fetch(API_URL + 'memberData/' + email.replace(/\"/gi, '')) //qr 인식시 큰따옴표 삭제 , 전체 MeberData에 get(정보있는지,없을때도 예외처리 해줘야 함)
         .then(response => response.json())
         .then(data => {
-          setUsers(data);
           console.log('data.phnoe_num:', data.phone_num);
-          setPhone_num(data.phone_num);
-          console.log(phone_num);
           setLoading(false);
-          console.log('user:', users);
           var time = new Date();
+          console.log('user info:', data);
+          setUsers(data);
           try {
             fetch(API_URL + 'liveData/', {
               // MemberData에 있는 정보로 liveData(실시간인원 post)
@@ -78,20 +81,22 @@ const ScanScreen = () => {
               .then(data_live => {
                 console.log(
                   "API_URL+'liveData/'+phone_num:",
-                  API_URL + 'liveData/' + phone_num,
+                  API_URL + 'liveData/' + data.phone_num,
                 );
                 if (
                   Object.entries(data_live).toString() ==
                   'phone_num,live data with this phone num already exists.'
                 ) {
                   // 이미 있는 정보면 저런식으로 반환값이 옴
-                  fetch(API_URL + 'liveData/' + phone_num + '/', {
+                  fetch(API_URL + 'liveData/' + data.phone_num + '/', {
                     method: 'DELETE',
                   })
                     .then(response => response.json())
-                    .then(data => console.log('Delete_livdData_data:', data))
-                    .catch(error =>
-                      console.log('Delete_livdData_error:', error),
+                    .then(data_live_then =>
+                      console.log('Delete_livdData_data:', data_live_then),
+                    )
+                    .catch(
+                      error => console.log('Delete_livdData_error:', error), //문제되는 부분[SyntaxError: JSON Parse error: Unexpected EOF]
                     );
                 }
 
@@ -132,36 +137,54 @@ const ScanScreen = () => {
   }, [scanned]);
 
   return (
-    <Fragment>
+    <View style={{flex: 1}}>
+      <View style={{flexDirection: 'row'}}>
+        <Image
+          resizeMode="cover"
+          style={{width: 150, height: 150}}
+          source={{uri: photoURL}}
+        />
+        <View style={styles.centerText}>
+          <Text> {JSON.stringify(users.email)} </Text>
+          <Text>
+            {' '}
+            {JSON.stringify(users.name)},{JSON.stringify(users.major)}
+          </Text>
+        </View>
+      </View>
       <QRCodeScanner
         ref={camera => (scanner = camera)} // qr스캐너 초기화 할떄 쓰는 코드던데 잘은 모름;;;
         onRead={e => onSuccess(e)} //QR코드 읽으면 어떤 함수 실행할지
         showMarker={true} //리더기에 초록색 사각형
-        topContent={
-          <Text style={styles.centerText}>
-            {' '}
-            {/* 위에 글자들 */}
-            <Text> {JSON.stringify(users.email)} </Text>
-            <Text>
-              {' '}
-              {JSON.stringify(users.name)},{JSON.stringify(users.major)}{' '}
-            </Text>
-          </Text>
-        }
-        bottomContent={
-          <Button title="Reactivate" onPress={() => startScan()} />
-        }
+        // topContent={
+        //   <View style={{flexDirection: 'row' ,alignItems:"flex-start"}}>
+        //     <Image style={{ width: 50, height: 50 }} source={{ uri: (photoURL) }} />
+        //     <View style={styles.centerText}>
+        //       <Text> {JSON.stringify(users.email)} </Text>
+        //       <Text>  {JSON.stringify(users.name)},{JSON.stringify(users.major)}</Text>
+
+        //     </View>
+
+        //   </View>
+        // }
+        // bottomContent={
+
+        // }
         style={{flex: 1}}
       />
-    </Fragment>
+
+      <View>
+        <Button title="Reactivate" onPress={() => startScan()} />
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   centerText: {
     flex: 1,
-    fontSize: 18,
-    padding: 32,
+    fontSize: 12,
+    padding: 1,
     color: '#777',
   },
   textBold: {
@@ -180,41 +203,3 @@ const styles = StyleSheet.create({
 AppRegistry.registerComponent('default', () => ScanScreen);
 
 export default ScanScreen;
-
-{
-  /*
- render() {
-    return (
-      
-      
-     <Fragment>
-        <QRCodeScanner
-        //onRead={(e)=>Alert.alert("scaned",e.data,this.state.count,this.update)}//인식 성공하면 여기서 받은 정보를 서버로 보내든가 해야함
-        
-        onRead={this.onSuccess}
-             //큐알 재인식?
-        
-        showMarker={true}   // 초록색 선
-        topContent={//위에 단어
-          <Text style={styles.centerText}>
-           QR코드 읽기
-          </Text>
-        }
-        bottomContent={ //밑에 단어
-          <TouchableOpacity style={styles.buttonTouchable}>
-            <Text style={styles.buttonText}>OK. Got it!</Text>
-          </TouchableOpacity>
-        }
-        
-      />
-       <Button title="reactivate"
-   onPress={() => {
-    this.scanner.reactivate();
-       
-      }}  />
-      
-      
-
-     </Fragment>
-    );}*/
-}
