@@ -11,27 +11,25 @@ import {
   Button,
   Alert,
   Image,
-  Text  
+  Text,
 } from 'react-native';
 
 const QRCodeGenerator = ({route}) => {
- 
   const userInfo = route.params;
-  
-    return (
-      <View style={styles.container}>
-        <Text>{userInfo.email}</Text>
-        <Image style={{width:30 , height:30 }}  source={{uri:userInfo.photo}}  />
-        <QRCode
-          value={JSON.stringify(userInfo)}
-          size={200}
-          bgColor="black"
-          fgColor="white"
-        />
-      </View>
-    );
-  
-}
+
+  return (
+    <View style={styles.container}>
+      <Text>{userInfo.email}</Text>
+      <Image style={{width: 30, height: 30}} source={{uri: userInfo.photo}} />
+      <QRCode
+        value={JSON.stringify(userInfo)}
+        size={200}
+        bgColor="black"
+        fgColor="white"
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
