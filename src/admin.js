@@ -38,7 +38,6 @@ const AdminScreen = ({navigation}) => {
               : Alert.alert('잘못된 입력입니다.');
           }}
         />
-        
       </View>
     </SafeAreaView>
   );
