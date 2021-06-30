@@ -61,10 +61,10 @@ const SnsGoogleLogin = () => {
       console.log(userInfo.user); // userInfo 이용해서 정보 사용해야함
       navigation.navigate('Home', {
         email: userInfo.user.email,
-        photo: userInfo.user.photo,
-        photoURL: userInfo.user.photoURL,
+        photo:userInfo.user.photo,
+        photoURL:userInfo.user.photoURL
       });
-      Alert.alert(userInfo.user.email);
+      
 
       //밑에는 로그인 실패시 오류 메시지
     } catch (error) {
