@@ -10,14 +10,24 @@ import {
   Alert,
   StatusBar,
   StyleSheet,
+<<<<<<< HEAD
+  Image
+=======
   Image,
+>>>>>>> master
 } from 'react-native';
 import {baseProps} from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
 
 const HomeScreen = ({route, navigation}) => {
   const API_URL = 'http://163.152.223.34:8000/liveData';
+<<<<<<< HEAD
+
+  const userInfo = route.params;     //개인정보
+  const [users, setUsers] = useState([]);   //현재 몇명있는지 정보
+=======
   const userInfo = route.params; //개인정보
   const [users, setUsers] = useState([]); //현재 몇명있는지 정보
+>>>>>>> master
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -47,10 +57,20 @@ const HomeScreen = ({route, navigation}) => {
         <View style={styles.content}>
           <Text>
             {'\n'}email:{JSON.stringify(userInfo.email)}
+<<<<<<< HEAD
+            
+=======
+>>>>>>> master
             {'\n'}
+            
           </Text>
+          <Image style={{width:30 , height:30 }}  source={{uri:userInfo.photo}}  />
           <Text>
+<<<<<<< HEAD
+            {'\n'}현재 사용자 목록:{'\n'}
+=======
             {'\n'}현재 사용자 목록 : {'\n'}
+>>>>>>> master
           </Text>
           <Image
             style={{width: 30, height: 30}}
@@ -65,7 +85,7 @@ const HomeScreen = ({route, navigation}) => {
               <View key={user.student_num}>
                 <View style={styles.elem}>
                   <View style={styles.memberName}>
-                    <Text>{user.name}</Text>
+                    <Text>{user.name[0]+"**"} / {user.major}</Text>
                   </View>
                 </View>
                 <View style={styles.elem}>
@@ -81,6 +101,11 @@ const HomeScreen = ({route, navigation}) => {
               style={styles.ButtonStyle}
               color="black"
               title="QR Code"
+<<<<<<< HEAD
+              onPress={() => navigation.navigate('QRGenerate', {email: userInfo.email,photo:userInfo.photo})}
+            />
+            
+=======
               onPress={() =>
                 navigation.navigate('QRGenerate', {
                   email: userInfo.email,
@@ -88,6 +113,7 @@ const HomeScreen = ({route, navigation}) => {
                 })
               }
             />
+>>>>>>> master
           </View>
         </View>
         <View style={styles.footer} />
