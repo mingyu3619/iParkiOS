@@ -65,7 +65,7 @@ const HomeScreen = ({route, navigation}) => {
               <View key={user.student_num}>
                 <View style={styles.elem}>
                   <View style={styles.memberName}>
-                    <Text>{user.name}</Text>
+                    <Text>{user.name[0]+"**"} / {user.major}</Text>
                   </View>
                 </View>
                 <View style={styles.elem}>

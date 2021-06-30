@@ -64,7 +64,7 @@ const SnsGoogleLogin = () => {
         photo:userInfo.user.photo,
         photoURL:userInfo.user.photoURL
       });
-      Alert.alert(userInfo.user.email);
+      
 
       //밑에는 로그인 실패시 오류 메시지
     } catch (error) {

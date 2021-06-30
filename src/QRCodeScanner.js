@@ -30,24 +30,26 @@ const ScanScreen = () => {
 
   const [scanned, setScanned] = useState(false);
   const API_URL = 'http://163.152.223.34:8000/';
-
-  const onSuccess = e => {
-    const userInfo = JSON.parse(e.data)
-    console.log('before setEmail:', userInfo);
-    console.log('before e.data:', userInfo.email);
-    console.log('before e.data_photo:', userInfo.photo);
-    setEmail(userInfo.email.replace('.ac.kr', '').toString()); //ac.kr 꼴 삭제 --> 장고에서 @korea.ac.kr 꼴 인식 못함(http://163.152.223.34:8000/MemberData/cxz3619@korea일떄나 개인 페이지 인식가능 )
-    setphotoURL(userInfo.photo);           //구글 프로필 이미지 
-    scanned ? setScanned(false) : setScanned(true); //큐알 인식시 state 바꿔주기
-  };
-  // 스캐너 초기화  부분 퍼온 코드임
-  let scanner;
-
+  const hi = () => {console.log("hi")}
   const startScan = () => {
     if (scanner) {
       scanner._setScanning(false);
     }
   };
+
+  const onSuccess = e => {
+    console.log("e.data 타입:", typeof e.data)
+    const userInfo = JSON.parse(e.data);   
+    setEmail(userInfo.email.replace('.ac.kr', '').toString()); //ac.kr 꼴 삭제 --> 장고에서 @korea.ac.kr 꼴 인식 못함(http://163.152.223.34:8000/MemberData/cxz3619@korea일떄나 개인 페이지 인식가능 )
+    setphotoURL(userInfo.photo);           //구글 프로필 이미지 
+    scanned ? setScanned(false) : setScanned(true); //큐알 인식시 state 바꿔주기
+    const date = new Date();
+    console.log(date);
+  };
+  // 스캐너 초기화  부분 퍼온 코드임
+  let scanner;
+
+
   // 스캐너 초기화  부분 퍼온 코드임
 
   useEffect(() => {
@@ -133,50 +135,40 @@ const ScanScreen = () => {
         });
     } catch (e) {
       setError(e);
-      console.log('db접속 error:', error);
+      
     }
+    
+
   }, [scanned]);
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={{ flexDirection: 'row' }}>
-        <Image resizeMode='cover' style={{ width: 150, height: 150 }} source={{ uri: (photoURL) }} />
+      <View style={{ flexDirection: 'row' , flex:1 }}>
+        <Image resizeMode='cover' style={{ width: 100, height: 100 ,alignItems:'flex-end' }} source={{ uri: (photoURL) }} />
         <View style={styles.centerText}>
-          <Text> {JSON.stringify(users.email)} </Text>
-          <Text>  {JSON.stringify(users.name)},{JSON.stringify(users.major)}</Text>
-
+          {/* <Text> {JSON.stringify(users.email)} </Text> */}
+          {/* <Text>  {JSON.stringify(users.name)},{JSON.stringify(users.major)}</Text> */}
+          {users.email? (<Text>
+          <Text> {JSON.stringify(users.email)},{JSON.stringify(users.name)}{"\n"} </Text>
+          <Text> {JSON.stringify(users.reserve_product)},{JSON.stringify(users.student_num)} </Text>
+        </Text> )
+                   :(<Text> {email}은 등록된 회원이 아닙니다! </Text>)}
         </View>
 
 
       </View>
+      <View style={{flex:5}}>
       <QRCodeScanner
         ref={camera => (scanner = camera)} // qr스캐너 초기화 할떄 쓰는 코드던데 잘은 모름;;;
+        
         onRead={e => onSuccess(e)} //QR코드 읽으면 어떤 함수 실행할지
         showMarker={true}//리더기에 초록색 사각형
-        // topContent={
-        //   <View style={{flexDirection: 'row' ,alignItems:"flex-start"}}>
-        //     <Image style={{ width: 50, height: 50 }} source={{ uri: (photoURL) }} />
-        //     <View style={styles.centerText}>
-        //       <Text> {JSON.stringify(users.email)} </Text>
-        //       <Text>  {JSON.stringify(users.name)},{JSON.stringify(users.major)}</Text>
-
-        //     </View>
-
-
-        //   </View>
-        // }
-        // bottomContent={
-
-
-
-        // }
-        style={{ flex: 1 }}
+        reactivate = {true}      //카메라 재 반응
+        reactivateTimeout={5000} //한번 반응하면 5초후 반응             
+        
       />
-
-      <View >
-        <Button title="Reactivate" onPress={() => startScan()} />
-
       </View>
+    
     </View>
   );
 };
@@ -187,6 +179,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     padding: 1,
     color: '#777',
+    
+    
   },
   textBold: {
     fontWeight: '500',
