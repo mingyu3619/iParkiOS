@@ -10,14 +10,14 @@ import {
   Alert,
   StatusBar,
   StyleSheet,
+  Image,
 } from 'react-native';
 import {baseProps} from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
 
 const HomeScreen = ({route, navigation}) => {
   const API_URL = 'http://163.152.223.34:8000/liveData';
-
-  const email = route.params;
-  const [users, setUsers] = useState([]);
+  const userInfo = route.params; //개인정보
+  const [users, setUsers] = useState([]); //현재 몇명있는지 정보
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -46,12 +46,16 @@ const HomeScreen = ({route, navigation}) => {
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
           <Text>
-            {'\n'}email:{JSON.stringify(email)}
+            {'\n'}email:{JSON.stringify(userInfo.email)}
             {'\n'}
           </Text>
           <Text>
-            {'\n'}현재 사용자 목록d{'\n'}
+            {'\n'}현재 사용자 목록 : {'\n'}
           </Text>
+          <Image
+            style={{width: 30, height: 30}}
+            source={{uri: userInfo.photo}}
+          />
           <Text>
             {' '}
             현재 {users.length} 명 사용중 {'\n'}
@@ -77,9 +81,13 @@ const HomeScreen = ({route, navigation}) => {
               style={styles.ButtonStyle}
               color="black"
               title="QR Code"
-              onPress={() => navigation.navigate('QRGenerate', {user: email})}
+              onPress={() =>
+                navigation.navigate('QRGenerate', {
+                  email: userInfo.email,
+                  photo: userInfo.photo,
+                })
+              }
             />
-            {console.log(email)}
           </View>
         </View>
         <View style={styles.footer} />
