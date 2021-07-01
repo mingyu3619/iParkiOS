@@ -1,11 +1,12 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Button, TextInput, Alert} from 'react-native';
-import SnsGoogleLogin from "./GoogleLogin"
-
+import SnsGoogleLogin from './GoogleLogin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const LoginScreen = ({navigation}) => {
   const [userEmail, setUserEmail] = useState(null);
-  const [userPassword, setUserPassword] = useState(null);
+  const [userPhoto, setUserPhoto] = useState(null);
+  // const [userPhotoURL, setUserPhotoURL] = useState(null);
+
   //const [loading, setLoading] = useState(false);
   //const [error, setError] = useState('');
   useEffect(() => {
@@ -14,55 +15,31 @@ const LoginScreen = ({navigation}) => {
   
   function logincheck(){
     AsyncStorage.getItem('isLogin').then((result)=>{
-      const userIF = AsyncStorage.getItem('user')
       if(result !== 'false') {
-        navigation.reset({routes: [{name: "Home", params: {user: userIF}}]})
+          navigation.reset({routes: [{name: "Home"
+            /*, params: {
+              email: userEmail,
+              photo: userPhoto,
+              photoURL: userPhotoURL
+              }*/
+            }]
+          })
       }
     })
-    }
+  }
   return (
     <View style={styles.mainView}>
       <Text style={styles.title}>IPARK QRCheckIn</Text>
-      <Text>Hello Please Login First....!</Text>
-      
-      <TextInput
-        style={styles.input}
-        value={userEmail}
-        onChangeText={userEmail => setUserEmail(userEmail)}
-        placeholder="Email"
-        autoCapitalize="none"
-        keyboardType={'email-address'}
-      />
-      <TextInput
-        style={styles.input}
-        value={userPassword}
-        onChangeText={userPassword => setUserPassword(userPassword)}
-        placeholder="Password"
-        secureTextEntry={true}
-      />
+      <Text style={styles.text}>교내 이메일로 로그인해주세요</Text>
+      <Text style={styles.text}>Please sign in using korea univ email</Text>
       <View style={styles.buttonContainer}>
+        <SnsGoogleLogin />
         <Button
-          color="#000"
-          title="Login"
-          style={styles.LoginButton}
-          onPress={() =>
-            userEmail === 'user@user.com' && userPassword === '1234'
-              ? navigation.reset({routes: [{name: "Home"}]})
-              : Alert.alert('잘못된 입력입니다.')
-          }
+          title="admin Login"
+          onPress={() => navigation.navigate('QRscan')}
         />
-        <Button
-          color="#000"
-          title="Admin Login"
-          style={styles.LoginButton}
-          onPress={() => navigation.navigate('admin')}
-        />
-        
-    
-      <SnsGoogleLogin/>
       </View>
     </View>
-
   );
 };
 
@@ -80,6 +57,10 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     marginTop: -100,
   },
+  text: {
+    color: 'white',
+    fontSize: 16,
+  },
   input: {
     backgroundColor: '#e8e8e8',
     fontSize: 20,
@@ -92,6 +73,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'column',
     justifyContent: 'space-between',
+    margin: 30,
   },
   LoginButton: {
     backgroundColor: 'white',

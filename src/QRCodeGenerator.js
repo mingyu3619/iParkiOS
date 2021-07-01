@@ -1,8 +1,8 @@
 'use strict';
 
 import React, {Component} from 'react';
-import QRCode from 'react-native-qrcode-generator';
-
+//import QRCode from 'react-native-qrcode-generator';
+import QRCode from 'react-native-qrcode-svg';
 import {
   AppRegistry,
   StyleSheet,
@@ -10,28 +10,26 @@ import {
   TextInput,
   Button,
   Alert,
+  Image,
   Text,
 } from 'react-native';
 
-class QRCodeGenerator extends Component {
-  state = {
-    text: JSON.stringify(this.props.route.params.user.user), //가끔 큐알 코드 만들떄 팅기기도 함...;;
-  };
+const QRCodeGenerator = ({route}) => {
+  const userInfo = route.params;
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>{this.state.text}</Text>
-        <QRCode
-          value={this.state.text}
-          size={200}
-          bgColor="black"
-          fgColor="white"
-        />
-      </View>
-    );
-  }
-}
+  return (
+    <View style={styles.container}>
+      <Text>{userInfo.email}</Text>
+      <Image style={{width: 30, height: 30}} source={{uri: userInfo.photo}} />
+      <QRCode
+        value={JSON.stringify(userInfo)}
+        size={200}
+        bgColor="black"
+        fgColor="white"
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

@@ -10,17 +10,28 @@ import {
   Alert,
   StatusBar,
   StyleSheet,
+  Image,
 } from 'react-native';
 import {baseProps} from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
+import {GoogleSignin} from '@react-native-community/google-signin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = ({route, navigation}) => {
   const API_URL = 'http://163.152.223.34:8000/liveData';
 
-  const email = route.params;
-  const [users, setUsers] = useState([]);
+  //const userInfo = route.params; //개인정보
+  const [users, setUsers] = useState([]); //현재 몇명있는지 정보
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [userEmail, setUserEmail] = useState(null);
+  const [userPhoto, setUserPhoto] = useState(null);
+  AsyncStorage.getItem('Email').then((Email)=>{
+    setUserEmail(Email);
+  })
+  AsyncStorage.getItem('Photo').then((Photo)=>{
+    setUserPhoto(Photo);
+  })
 
   useEffect(() => {
     try {
@@ -29,13 +40,25 @@ const HomeScreen = ({route, navigation}) => {
         .then(data => {
           setUsers(data);
           setLoading(false);
+          AsyncStorage.setItem('isLogin', 'true');
+          //AsyncStorage.setItem('isLogin', 'false');
         });
-      AsyncStorage.setItem('user', JSON.stringify(email));
-      AsyncStorage.setItem('isLogin', 'true');
     } catch (e) {
       setError(e);
     }
   }, []);
+
+  async function signOut() {
+    //로그아웃
+    try {
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+      AsyncStorage.setItem('isLogin', 'false');
+      navigation.reset({routes: [{name: "Login"}]})
+    } catch (error) {
+      Alert.alert('Something else went wrong... ', error.toString());
+    }
+  }
 
   if (loading) {
     return (
@@ -49,12 +72,17 @@ const HomeScreen = ({route, navigation}) => {
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
           <Text>
-            {'\n'}email:{JSON.stringify(email)}
+            {'\n'}email:{JSON.stringify(userEmail)}
             {'\n'}
           </Text>
+          <Image
+            style={{width: 30, height: 30}}
+            source={{uri: userPhoto}}
+          />
           <Text>
-            {'\n'}현재 사용자 목록d{'\n'}
+            {'\n'}현재 사용자 목록:{'\n'}
           </Text>
+         
           <Text>
             {' '}
             현재 {users.length} 명 사용중 {'\n'}
@@ -64,7 +92,9 @@ const HomeScreen = ({route, navigation}) => {
               <View key={user.student_num}>
                 <View style={styles.elem}>
                   <View style={styles.memberName}>
-                    <Text>{user.name}</Text>
+                    <Text>
+                      {user.name[0] + '**'} / {user.major}
+                    </Text>
                   </View>
                 </View>
                 <View style={styles.elem}>
@@ -80,9 +110,19 @@ const HomeScreen = ({route, navigation}) => {
               style={styles.ButtonStyle}
               color="black"
               title="QR Code"
-              onPress={() => navigation.navigate('QRGenerate', {user: email})}
+              onPress={() =>
+                navigation.navigate('QRGenerate', {
+                  email: userEmail,
+                  photo: userPhoto,
+                })
+              }
             />
-            {console.log(email)}
+            <Button
+             title="Logout"
+              onPress={() =>
+                signOut() ? Alert.alert('Logout success') : Alert.alert('error')
+             }
+            />
           </View>
         </View>
         <View style={styles.footer} />
