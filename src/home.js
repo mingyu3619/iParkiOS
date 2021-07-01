@@ -57,10 +57,7 @@ const HomeScreen = ({route, navigation}) => {
           <Text>
             {'\n'}현재 사용자 목록:{'\n'}
           </Text>
-          <Image
-            style={{width: 30, height: 30}}
-            source={{uri: userInfo.photo}}
-          />
+         
           <Text>
             {' '}
             현재 {users.length} 명 사용중 {'\n'}
