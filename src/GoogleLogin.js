@@ -59,9 +59,7 @@ const SnsGoogleLogin = () => {
       console.log(isLoggedIn);
       console.log(error);
       console.log(userInfo.user); // userInfo 이용해서 정보 사용해야함
-      navigation.navigate('Home', {
-        user: userInfo.user.email,
-      });
+      navigation.reset({routes: [{name: "Home", params: {user:userInfo.user.email}}]})
       Alert.alert(userInfo.user.email);
 
       //밑에는 로그인 실패시 오류 메시지

@@ -30,6 +30,7 @@ const HomeScreen = ({route, navigation}) => {
           setUsers(data);
           setLoading(false);
         });
+      AsyncStorage.setItem('user', JSON.stringify(email));
       AsyncStorage.setItem('isLogin', 'true');
     } catch (e) {
       setError(e);

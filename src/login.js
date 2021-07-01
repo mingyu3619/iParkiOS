@@ -14,8 +14,9 @@ const LoginScreen = ({navigation}) => {
   
   function logincheck(){
     AsyncStorage.getItem('isLogin').then((result)=>{
+      const userIF = AsyncStorage.getItem('user')
       if(result !== 'false') {
-        navigation.reset({routes: [{name: "Home"}]})
+        navigation.reset({routes: [{name: "Home", params: {user: userIF}}]})
       }
     })
     }
