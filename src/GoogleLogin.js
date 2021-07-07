@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-catch-shadow */
 import 'react-native-gesture-handler';
 import React, {useEffect, useState, Component, Fragment} from 'react';
 //import { createStackNavigator } from 'react-navigation';
@@ -26,6 +28,7 @@ import {
   statusCodes,
 } from '@react-native-community/google-signin';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SnsGoogleLogin = () => {
   const WEB_CLIENT_ID =
@@ -59,12 +62,23 @@ const SnsGoogleLogin = () => {
       console.log(isLoggedIn);
       console.log(error);
       console.log(userInfo.user); // userInfo 이용해서 정보 사용해야함
-      navigation.navigate('Home', {
+
+      await AsyncStorage.setItem('Email', userInfo.user.email);
+      await AsyncStorage.setItem('Photo', userInfo.user.photo);
+      //await AsyncStorage.setItem('PhotoURL', userInfo.user.photoURL);
+
+      navigation.reset({
+        routes: [
+          {
+            name: 'Home',
+            /*, params: {
         email: userInfo.user.email,
         photo: userInfo.user.photo,
-        photoURL: userInfo.user.photoURL,
+        photoURL: userInfo.user.photoURL
+      }*/
+          },
+        ],
       });
-
       //밑에는 로그인 실패시 오류 메시지
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -83,6 +97,7 @@ const SnsGoogleLogin = () => {
       }
     }
   }
+  /*
   async function signOut() {
     //로그아웃
     try {
@@ -93,6 +108,7 @@ const SnsGoogleLogin = () => {
       Alert.alert('Something else went wrong... ', error.toString());
     }
   }
+  */
   async function getCurrentUserInfo() {
     //현재 유저 정보 가져오는 함수,일단은 안씀
     try {
@@ -115,12 +131,6 @@ const SnsGoogleLogin = () => {
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Light}
         onPress={() => signIn()} //구글 로그인 버튼 누르면 signIn 함수 실행하고 UserInfo를 Home화면으로  보내야 함
-      />
-      <Button
-        title="Logout"
-        onPress={() =>
-          signOut() ? Alert.alert('Logout success') : Alert.alert('error')
-        }
       />
     </View>
   );

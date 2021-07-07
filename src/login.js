@@ -1,12 +1,36 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Button, TextInput, Alert} from 'react-native';
 import SnsGoogleLogin from './GoogleLogin';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const LoginScreen = ({navigation}) => {
   const [userEmail, setUserEmail] = useState(null);
-  const [userPassword, setUserPassword] = useState(null);
+  const [userPhoto, setUserPhoto] = useState(null);
+  // const [userPhotoURL, setUserPhotoURL] = useState(null);
+
   //const [loading, setLoading] = useState(false);
   //const [error, setError] = useState('');
+  useEffect(() => {
+    logincheck();
+  }, []);
 
+  function logincheck() {
+    AsyncStorage.getItem('isLogin').then(result => {
+      if (result !== 'false') {
+        navigation.reset({
+          routes: [
+            {
+              name: 'Home',
+              /*, params: {
+              email: userEmail,
+              photo: userPhoto,
+              photoURL: userPhotoURL
+              }*/
+            },
+          ],
+        });
+      }
+    });
+  }
   return (
     <View style={styles.mainView}>
       <Text style={styles.title}>IPARK QRCheckIn</Text>
