@@ -1,4 +1,4 @@
-package com.ipark;
+package com.ipark_ku;
 
 import com.facebook.react.ReactActivity;
 
