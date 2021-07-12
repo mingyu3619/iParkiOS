@@ -15,7 +15,9 @@ const LoginScreen = ({navigation}) => {
 
   function logincheck() {
     AsyncStorage.getItem('isLogin').then(result => {
-      if (result !== 'false') {
+      
+    
+      if (result == 'true') {
         navigation.reset({
           routes: [
             {
@@ -30,6 +32,8 @@ const LoginScreen = ({navigation}) => {
         });
       }
     });
+    
+    
   }
   return (
     <View style={styles.mainView}>

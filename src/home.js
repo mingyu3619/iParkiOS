@@ -28,6 +28,7 @@ const HomeScreen = ({route, navigation}) => {
   const [userPhoto, setUserPhoto] = useState(null);
   AsyncStorage.getItem('Email').then(Email => {
     setUserEmail(Email);
+    
   });
   AsyncStorage.getItem('Photo').then(Photo => {
     setUserPhoto(Photo);
@@ -76,6 +77,7 @@ const HomeScreen = ({route, navigation}) => {
             {'\n'}
           </Text>
           <Image style={{width: 30, height: 30}} source={{uri: userPhoto}} />
+          
           <Text>
             {'\n'}현재 사용자 목록:{'\n'}
           </Text>
