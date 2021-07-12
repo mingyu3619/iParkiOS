@@ -51,10 +51,10 @@ const ScanScreen = () => {
     const date = new Date();
     console.log(date);
   };
-  // 스캐너 초기화  부분 퍼온 코드임
+  // 스캐너 초기화  부분
   let scanner;
 
-  // 스캐너 초기화  부분 퍼온 코드임
+  // 스캐너 초기화  부분
 
   useEffect(() => {
     try {
