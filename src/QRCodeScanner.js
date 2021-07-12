@@ -171,19 +171,13 @@ const ScanScreen = () => {
                 style={{width: 100, height: 100, alignItems: 'flex-end'}}
                 source={{uri: photoURL}}
               />
-              <Text style={{fontSize: 30, color: 'white'}}>
+              <Text style={{fontSize: 20, color: 'white'}}>
                 {users.email ? (
                   <Text>
-                    <Text>
-                      {' '}
-                      {JSON.stringify(users.email)},{JSON.stringify(users.name)}
-                      {'\n'}{' '}
-                    </Text>
-                    <Text>
-                      {' '}
-                      {JSON.stringify(users.reserve_product)},
-                      {JSON.stringify(users.student_num)}{' '}
-                    </Text>
+                    {' '}
+                    {JSON.stringify(users.name)}
+                    {JSON.stringify(users.reserve_product)}
+                    {JSON.stringify(users.student_num)}{' '}
                   </Text>
                 ) : (
                   <Text> QR CODE를 인식 시켜주세요. </Text>
