@@ -32,7 +32,7 @@ const ScanScreen = () => {
   const [error, setError] = useState(null);
 
   const [scanned, setScanned] = useState(false);
-  const API_URL = 'http://163.152.223.34:8000/';
+  const API_URL = 'http://cxz3619.pythonanywhere.com/';
   const hi = () => {
     console.log('hi');
   };
@@ -60,7 +60,7 @@ const ScanScreen = () => {
     try {
       console.log(API_URL + 'memberData/' + email.replace('"', ''));
       fetch(API_URL + 'memberData/' + email.replace(/\"/gi, '')) //qr 인식시 큰따옴표 삭제 , 전체 MeberData에 get(정보있는지,없을때도 예외처리 해줘야 함)
-        .then(response => response.json())
+        .then(response => response.json()) 
         .then(data => {
           console.log('data.phnoe_num:', data.phone_num);
           setLoading(false);
@@ -80,7 +80,7 @@ const ScanScreen = () => {
                 name: data.name,
                 major: data.major,
                 student_num: data.student_num,
-                enter_time: moment().format('YYYY-MM-D HH:mm:ss'),
+                enter_time: moment().format('YYYY/MM/D HH:mm:ss'),
                 reserve_product: data.reserve_product,
               }),
             })
@@ -122,7 +122,7 @@ const ScanScreen = () => {
                       name: data.name,
                       major: data.major,
                       student_num: data.student_num,
-                      enter_time: moment().format('YYYY-MM-D HH:mm:ss'),
+                      enter_time: moment().format('YYYY/MM/D HH:mm:ss'),
                     }),
                   })
                     .then(response => response.json())

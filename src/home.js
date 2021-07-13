@@ -17,7 +17,7 @@ import {GoogleSignin} from '@react-native-community/google-signin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = ({route, navigation}) => {
-  const API_URL = 'http://163.152.223.34:8000/liveData';
+  const API_URL = 'http://cxz3619.pythonanywhere.com/liveData';
 
   //const userInfo = route.params; //개인정보
   const [users, setUsers] = useState([]); //현재 몇명있는지 정보
