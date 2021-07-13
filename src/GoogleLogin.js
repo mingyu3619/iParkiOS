@@ -68,18 +68,22 @@ const SnsGoogleLogin = () => {
       await AsyncStorage.setItem('Photo', userInfo.user.photo);
       //await AsyncStorage.setItem('PhotoURL', userInfo.user.photoURL);
 
-      userInfo.user.email.split('@')[1]=="korea.ac.kr" ? navigation.reset({
-        routes: [
-          {
-            name: 'Home',
-            /*, params: {
+      userInfo.user.email.split('@')[1] == 'korea.ac.kr'
+        ? navigation.reset({
+            routes: [
+              {
+                name: 'Home',
+                /*, params: {
         email: userInfo.user.email,
         photo: userInfo.user.photo,
         photoURL: userInfo.user.photoURL
       }*/
-          },
-        ],
-      }):Alert.alert("로그아웃 후 학교 이메일로 로그인하세요!!(포털id@korea.ac.kr)"); // korea.ac.kr 꼴만 출입가능
+              },
+            ],
+          })
+        : Alert.alert(
+            '로그아웃 후 학교 이메일로 로그인하세요!!(포털id@korea.ac.kr)',
+          ); // korea.ac.kr 꼴만 출입가능
 
       //밑에는 로그인 실패시 오류 메시지
     } catch (error) {
@@ -99,19 +103,18 @@ const SnsGoogleLogin = () => {
       }
     }
   }
-  
+
   async function signOut() {
     //로그아웃
     try {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
       setIsLoggedIn(false);
-      
     } catch (error) {
       Alert.alert('Something else went wrong... ', error.toString());
     }
   }
-  
+
   async function getCurrentUserInfo() {
     //현재 유저 정보 가져오는 함수,일단은 안씀
     try {
@@ -135,7 +138,7 @@ const SnsGoogleLogin = () => {
         color={GoogleSigninButton.Color.Light}
         onPress={() => signIn()} //구글 로그인 버튼 누르면 signIn 함수 실행하고 UserInfo를 Home화면으로  보내야 함
       />
-      <Button  title="Logout" onPress={() =>signOut() }  />
+      <Button title="Logout" onPress={() => signOut()} />
     </View>
   );
 };

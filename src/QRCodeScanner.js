@@ -8,10 +8,7 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  Linking,
-  Alert,
-  Button,
+  Dimensions,
   Image,
   View,
 } from 'react-native';
@@ -20,6 +17,12 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
 import moment from 'moment-timezone';
 import {color} from 'react-native-reanimated';
+
+import Icon from 'react-native-vector-icons/Ionicons';
+import * as Animatable from 'react-native-animatable';
+
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const ScanScreen = () => {
   const [email, setEmail] = useState(null); //email 담아서 fetch(post)때 쓸라고
@@ -48,10 +51,10 @@ const ScanScreen = () => {
     const date = new Date();
     console.log(date);
   };
-  // 스캐너 초기화  부분 퍼온 코드임
+  // 스캐너 초기화  부분
   let scanner;
 
-  // 스캐너 초기화  부분 퍼온 코드임
+  // 스캐너 초기화  부분
 
   useEffect(() => {
     try {
@@ -140,47 +143,92 @@ const ScanScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scanned]);
 
+  const makeSlideOutTranslation = (translationType, fromValue) => {
+    return {
+      from: {
+        [translationType]: SCREEN_WIDTH * -0.05,
+      },
+      to: {
+        [translationType]: fromValue * 0.9,
+      },
+    };
+  };
+
   return (
-    <View style={{flex: 1}}>
-      <View style={{flexDirection: 'row', flex: 1}}>
-        <Image
-          resizeMode="cover"
-          style={{width: 100, height: 100, alignItems: 'flex-end'}}
-          source={{uri: photoURL}}
-        />
-        <View style={styles.centerText}>
-          {/* <Text> {JSON.stringify(users.email)} </Text> */}
-          {/* <Text>  {JSON.stringify(users.name)},{JSON.stringify(users.major)}</Text> */}
-          {users.email ? (
-            <Text>
-              <Text>
-                {' '}
-                {JSON.stringify(users.email)},{JSON.stringify(users.name)}
-                {'\n'}{' '}
+    <View>
+      <QRCodeScanner
+        ref={camera => (scanner = camera)} // qr스캐너 초기화 할떄 쓰는 코드던데 잘은 모름;;;
+        onRead={e => onSuccess(e)} //QR코드 읽으면 어떤 함수 실행할지
+        showMarker={true} //리더기에 초록색 사각형
+        reactivate={true} //카메라 재 반응
+        reactivateTimeout={5000} //한번 반응하면 5초후 반응
+        cameraStyle={{height: SCREEN_HEIGHT}}
+        customMarker={
+          <View style={styles.rectangleContainer}>
+            <View style={styles.topOverlay}>
+              <Image
+                resizeMode="cover"
+                style={{width: 100, height: 100, alignItems: 'flex-end'}}
+                source={{uri: photoURL}}
+              />
+              <Text style={{fontSize: 20, color: 'white'}}>
+                {users.email ? (
+                  <Text>
+                    {' '}
+                    {JSON.stringify(users.name)}
+                    {JSON.stringify(users.reserve_product)}
+                    {JSON.stringify(users.student_num)}{' '}
+                  </Text>
+                ) : (
+                  <Text> QR CODE를 인식 시켜주세요. </Text>
+                )}
               </Text>
-              <Text>
-                {' '}
-                {JSON.stringify(users.reserve_product)},
-                {JSON.stringify(users.student_num)}{' '}
-              </Text>
-            </Text>
-          ) : (
-            <Text> {email}은 등록된 회원이 아닙니다! </Text>
-          )}
-        </View>
-      </View>
-      <View style={{flex: 5}}>
-        <QRCodeScanner
-          ref={camera => (scanner = camera)} // qr스캐너 초기화 할떄 쓰는 코드던데 잘은 모름;;;
-          onRead={e => onSuccess(e)} //QR코드 읽으면 어떤 함수 실행할지
-          showMarker={true} //리더기에 초록색 사각형
-          reactivate={true} //카메라 재 반응
-          reactivateTimeout={5000} //한번 반응하면 5초후 반응
-        />
-      </View>
+            </View>
+
+            <View style={{flexDirection: 'row'}}>
+              <View style={styles.leftAndRightOverlay} />
+
+              <View style={styles.rectangle}>
+                <Icon
+                  name="scan-outline"
+                  size={SCREEN_WIDTH * 0.5}
+                  color={iconScanColor}
+                />
+                <Animatable.View
+                  style={styles.scanBar}
+                  direction="alternate-reverse"
+                  iterationCount="infinite"
+                  duration={1700}
+                  easing="linear"
+                  animation={makeSlideOutTranslation(
+                    'translateY',
+                    SCREEN_WIDTH * -0.54,
+                  )}
+                />
+              </View>
+
+              <View style={styles.leftAndRightOverlay} />
+            </View>
+
+            <View style={styles.bottomOverlay} />
+          </View>
+        }
+      />
     </View>
   );
 };
+
+const overlayColor = 'rgba(0,0,0,0.5)'; // this gives us a black color with a 50% transparency
+
+const rectDimensions = SCREEN_WIDTH * 0.65; // this is equivalent to 255 from a 393 device width
+const rectBorderWidth = SCREEN_WIDTH * 0.005; // this is equivalent to 2 from a 393 device width
+const rectBorderColor = 'white';
+
+const scanBarWidth = SCREEN_WIDTH * 0.46; // this is equivalent to 180 from a 393 device width
+const scanBarHeight = SCREEN_WIDTH * 0.0025; //this is equivalent to 1 from a 393 device width
+const scanBarColor = '#22ff00';
+
+const iconScanColor = 'white';
 
 const styles = StyleSheet.create({
   centerText: {
@@ -193,12 +241,50 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#000',
   },
-  buttonText: {
-    fontSize: 21,
-    color: 'rgb(0,122,255)',
+  rectangleContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
   },
-  buttonTouchable: {
-    padding: 16,
+
+  rectangle: {
+    height: rectDimensions,
+    width: rectDimensions,
+    borderWidth: rectBorderWidth,
+    borderColor: rectBorderColor,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+  },
+
+  topOverlay: {
+    flex: 1,
+    height: SCREEN_WIDTH,
+    width: SCREEN_WIDTH,
+    backgroundColor: overlayColor,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  bottomOverlay: {
+    flex: 1,
+    height: SCREEN_WIDTH,
+    width: SCREEN_WIDTH,
+    backgroundColor: overlayColor,
+    paddingBottom: SCREEN_WIDTH * 0.25,
+  },
+
+  leftAndRightOverlay: {
+    height: SCREEN_WIDTH * 0.65,
+    width: SCREEN_WIDTH,
+    backgroundColor: overlayColor,
+  },
+
+  scanBar: {
+    width: scanBarWidth,
+    height: scanBarHeight,
+    backgroundColor: scanBarColor,
   },
 });
 
