@@ -44,7 +44,7 @@ const LoginScreen = ({navigation}) => {
         <SnsGoogleLogin />
         <Button
           title="admin Login"
-          onPress={() => navigation.navigate('QRscan')}
+          onPress={() => navigation.navigate('admin')}
         />
       </View>
     </View>

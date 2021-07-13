@@ -73,7 +73,7 @@ const HomeScreen = ({route, navigation}) => {
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
           <Text>
-            {'\n'}email:{JSON.stringify(userEmail)}
+            {/* {'\n'}email:{JSON.stringify(userEmail)} */}
             {'\n'}
           </Text>
           <Image style={{width: 30, height: 30}} source={{uri: userPhoto}} />
@@ -92,7 +92,7 @@ const HomeScreen = ({route, navigation}) => {
                 <View style={styles.elem}>
                   <View style={styles.memberName}>
                     <Text>
-                      {user.name[0] + '**'} / {user.major}
+                      {user.name[0] + '**'} 
                     </Text>
                   </View>
                 </View>

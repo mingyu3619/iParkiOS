@@ -135,11 +135,11 @@ android {
         applicationId "com.ipark_ku"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
+        versionCode 3
         missingDimensionStrategy 'react-native-camera', 'general'
         
         multiDexEnabled true
-        versionName "1.1"
+        versionName "1.2"
     }
     splits {
         abi {
@@ -175,7 +175,7 @@ android {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
             shrinkResources enableProguardInReleaseBuilds
-            signingConfig signingConfigs.debug
+            //signingConfig signingConfigs.debug
             signingConfig signingConfigs.release
             
             minifyEnabled enableProguardInReleaseBuilds
