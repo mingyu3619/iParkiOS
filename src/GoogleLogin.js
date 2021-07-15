@@ -31,8 +31,9 @@ import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SnsGoogleLogin = () => {
-  const WEB_CLIENT_ID =
-    '948413181622-md1rtcisch7fbo7423gveaa5rrr6dag8.apps.googleusercontent.com'; //로그인 안도면 한번 보기
+  const WEB_CLIENT_ID ='948413181622-md1rtcisch7fbo7423gveaa5rrr6dag8.apps.googleusercontent.com'; //로그인 안도면 한번 보기
+  //"948413181622-33plq5for4rkds86utafp7av9sf4848c.apps.googleusercontent.com";
+  //"948413181622-fuaso7trouk8t1qs3239oc7diqgs6h1o.apps.googleusercontent.com";
   const [userInfo, setUserInfo] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState(null);
@@ -109,6 +110,7 @@ const SnsGoogleLogin = () => {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
       setIsLoggedIn(false);
+      Alert.alert('Logout success');
     } catch (error) {
       Alert.alert('Something else went wrong... ', error.toString());
     }

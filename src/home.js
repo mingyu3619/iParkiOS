@@ -17,7 +17,7 @@ import {GoogleSignin} from '@react-native-community/google-signin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = ({route, navigation}) => {
-  const API_URL = 'http://163.152.223.34:8000/liveData';
+  const API_URL = 'http://cxz3619.pythonanywhere.com/liveData';
 
   //const userInfo = route.params; //개인정보
   const [users, setUsers] = useState([]); //현재 몇명있는지 정보
@@ -72,7 +72,7 @@ const HomeScreen = ({route, navigation}) => {
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
           <Text>
-            {'\n'}email:{JSON.stringify(userEmail)}
+            {/* {'\n'}email:{JSON.stringify(userEmail)} */}
             {'\n'}
           </Text>
           <Image style={{width: 30, height: 30}} source={{uri: userPhoto}} />
@@ -91,7 +91,8 @@ const HomeScreen = ({route, navigation}) => {
                 <View style={styles.elem}>
                   <View style={styles.memberName}>
                     <Text>
-                      {user.name[0] + '**'} / {user.major}
+                      {user.name[0] + '**'} 
+
                     </Text>
                   </View>
                 </View>
