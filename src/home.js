@@ -92,6 +92,7 @@ const HomeScreen = ({route, navigation}) => {
                   <View style={styles.memberName}>
                     <Text>
                       {user.name[0] + '**'} 
+
                     </Text>
                   </View>
                 </View>

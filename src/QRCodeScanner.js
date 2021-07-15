@@ -32,7 +32,9 @@ const ScanScreen = () => {
   const [error, setError] = useState(null);
 
   const [scanned, setScanned] = useState(false);
+
   const API_URL = 'http://cxz3619.pythonanywhere.com/';
+
   const hi = () => {
     console.log('hi');
   };

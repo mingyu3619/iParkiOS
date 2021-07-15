@@ -21,6 +21,7 @@ const QRCodeGenerator = ({route}) => {
     <View style={styles.container}>
       {/* <Text>{userInfo.email}</Text> */}
       {/* <Image style={{width: 30, height: 30}} source={{uri: userInfo.photo}} /> */}
+
       <QRCode
         value={JSON.stringify(userInfo)}
         size={200}
