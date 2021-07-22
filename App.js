@@ -15,6 +15,8 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import QRCodeGenerator from './src/QRCodeGenerator';
 import SnsGoogleLogin from './src/GoogleLogin';
 import {roundToNearestPixel} from 'react-native/Libraries/Utilities/PixelRatio';
+import Map from './src/map';
+import Youtube  from './src/youtube';
 
 const Stack = createStackNavigator();
 // Screen이라는 프로퍼티를 리턴할때 스크린 컴포넌트를 명시해주는데 네비게이션 props을 각각의 스크린 컴포넌트에 넘겨주게 된다.
@@ -52,6 +54,8 @@ const App = () => {
             headerTitle: <LogoTitle />,
           }}
         />
+        <Stack.Screen name="Youtube" component={Youtube} />
+        <Stack.Screen name="Map" component={Map} />
         <Stack.Screen name="QRscan" component={ScanScreen} />
         <Stack.Screen name="QRGenerate" component={QRCodeGenerator} />
         <Stack.Screen name="GoogleSign" component={SnsGoogleLogin} />

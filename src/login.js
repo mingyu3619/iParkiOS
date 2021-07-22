@@ -42,10 +42,11 @@ const LoginScreen = ({navigation}) => {
       <Text style={styles.text}>Please sign in using korea univ email</Text>
       <View style={styles.buttonContainer}>
         <SnsGoogleLogin />
-        <Button
+        {/* <Button
+          
           title="admin Login"
           onPress={() => navigation.navigate('admin')}
-        />
+        /> */}
       </View>
     </View>
   );
@@ -88,7 +89,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: 300,
     height: 40,
-    marginTop: 10,
+    
+    
   },
 });
 

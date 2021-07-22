@@ -110,6 +110,7 @@ const HomeScreen = ({route, navigation}) => {
               color="black"
               title="QR Code"
               onPress={() =>
+                //navigation.reset({routes: [{name: 'QRGenerate'}]})
                 navigation.navigate('QRGenerate', {
                   email: userEmail,
                   photo: userPhoto,
@@ -117,9 +118,17 @@ const HomeScreen = ({route, navigation}) => {
               }
             />
             <Button
+              color="black"
               title="Logout"
               onPress={() =>
                 signOut() ? Alert.alert('Logout success') : Alert.alert('error')
+              }
+            />
+            <Button
+              color="black"
+              title="map"
+              onPress={() =>
+               navigation.navigate('Map')
               }
             />
           </View>

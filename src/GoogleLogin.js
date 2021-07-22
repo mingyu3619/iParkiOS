@@ -14,6 +14,7 @@ import {
   unstable_enableLogBox,
   Alert,
   TouchableHighlightBase,
+  TouchableOpacity
 } from 'react-native';
 
 import {
@@ -82,7 +83,7 @@ const SnsGoogleLogin = () => {
             ],
           })
         : Alert.alert(
-            '로그아웃 후 학교 이메일로 로그인하세요!!(포털id@korea.ac.kr)',
+            '로그아웃 후,학교 이메일로 재로그인하세요!(포털id@korea.ac.kr)',
           ); // korea.ac.kr 꼴만 출입가능
 
       //밑에는 로그인 실패시 오류 메시지
@@ -134,13 +135,61 @@ const SnsGoogleLogin = () => {
   }
   return (
     <View>
-      <GoogleSigninButton
+      <GoogleSigninButton        
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Light}
         onPress={() => signIn()} //구글 로그인 버튼 누르면 signIn 함수 실행하고 UserInfo를 Home화면으로  보내야 함
       />
-      <Button title="Logout" onPress={() => signOut()} />
+      {/* <Button      
+      
+      title="Logout" onPress={() => signOut()}>
+         <Text style={{color: 'red'}}>Logout</Text>
+      </Button> */}
+      <TouchableOpacity
+          style={styles.button}
+          onPress={() => signOut()}
+        >
+          <Text style={styles.text}>Logout</Text>
+        </TouchableOpacity>
+   
+          <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('admin')}
+        >
+          <Text style={styles.text}>Admin Login</Text>
+        </TouchableOpacity>
+        
     </View>
+
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    paddingHorizontal: 10
+  },
+  button: {
+    alignItems: "center",
+    backgroundColor: "white",
+    padding: 8,
+    marginBottom:4,
+    marginHorizontal:5,
+    borderRadius:2,
+    height:37,  
+    elevation:5
+  
+  },
+  countContainer: {
+    alignItems: "center",
+    padding: 10
+  },
+  text:{
+  color:"#787878",
+  fontWeight:"700"
+  }
+  
+});
+
 export default SnsGoogleLogin;
