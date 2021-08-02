@@ -17,7 +17,7 @@ import SnsGoogleLogin from './src/GoogleLogin';
 import {roundToNearestPixel} from 'react-native/Libraries/Utilities/PixelRatio';
 import Map from './src/map';
 import Youtube  from './src/youtube';
-
+import Chart from "./src/chart";
 const Stack = createStackNavigator();
 // Screen이라는 프로퍼티를 리턴할때 스크린 컴포넌트를 명시해주는데 네비게이션 props을 각각의 스크린 컴포넌트에 넘겨주게 된다.
 // 따라서 this.props.navigation을 사용가능하게 해준다.
@@ -54,6 +54,7 @@ const App = () => {
             headerTitle: <LogoTitle />,
           }}
         />
+        <Stack.Screen name="Chart" component={Chart} />
         <Stack.Screen name="Youtube" component={Youtube} />
         <Stack.Screen name="Map" component={Map} />
         <Stack.Screen name="QRscan" component={ScanScreen} />

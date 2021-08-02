@@ -82,9 +82,14 @@ const SnsGoogleLogin = () => {
               },
             ],
           })
-        : Alert.alert(
+        : (Alert.alert(
             '로그아웃 후,학교 이메일로 재로그인하세요!(포털id@korea.ac.kr)',
-          ); // korea.ac.kr 꼴만 출입가능
+            await GoogleSignin.revokeAccess(),
+            await GoogleSignin.signOut(),
+            
+          )
+          )
+          ; // korea.ac.kr 꼴만 출입가능
 
       //밑에는 로그인 실패시 오류 메시지
     } catch (error) {
@@ -178,7 +183,7 @@ const styles = StyleSheet.create({
     marginHorizontal:5,
     borderRadius:2,
     height:37,  
-    elevation:5
+    elevation:15
   
   },
   countContainer: {

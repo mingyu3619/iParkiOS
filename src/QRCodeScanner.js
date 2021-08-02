@@ -82,7 +82,7 @@ const ScanScreen = () => {
                 name: data.name,
                 major: data.major,
                 student_num: data.student_num,
-                enter_time: moment().format('YYYY/MM/D HH:mm:ss'),
+                enter_time: moment().format('YYYY/MM/DD HH:mm:ss'),
                 reserve_product: data.reserve_product,
               }),
             })
@@ -124,7 +124,7 @@ const ScanScreen = () => {
                       name: data.name,
                       major: data.major,
                       student_num: data.student_num,
-                      enter_time: moment().format('YYYY/MM/D HH:mm:ss'),
+                      enter_time: moment().format('YYYY/MM/DD HH:mm:ss'),
                     }),
                   })
                     .then(response => response.json())

@@ -11,14 +11,17 @@ import {
   StatusBar,
   StyleSheet,
   Image,
+  Dimensions
 } from 'react-native';
 import {baseProps} from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
 import {GoogleSignin} from '@react-native-community/google-signin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Chart from './chart';
+import ProgressCircle from 'react-native-progress-circle'
 
 const HomeScreen = ({route, navigation}) => {
   const API_URL = 'http://cxz3619.pythonanywhere.com/liveData';
-
+  
   //const userInfo = route.params; //개인정보
   const [users, setUsers] = useState([]); //현재 몇명있는지 정보
   const [loading, setLoading] = useState(true);
@@ -51,15 +54,19 @@ const HomeScreen = ({route, navigation}) => {
   async function signOut() {
     //로그아웃
     try {
+      AsyncStorage.setItem('isLogin', 'false');
+      navigation.reset({ routes: [{ name: 'Login' }] });
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
-      AsyncStorage.setItem('isLogin', 'false');
-      navigation.reset({routes: [{name: 'Login'}]});
+      
     } catch (error) {
       Alert.alert('Something else went wrong... ', error.toString());
     }
   }
 
+
+  const value = 0.66;
+  
   if (loading) {
     return (
       <SafeAreaView style={styles.loading}>
@@ -68,8 +75,21 @@ const HomeScreen = ({route, navigation}) => {
     );
     //REST API
   } else {
+
     return (
       <SafeAreaView style={styles.container}>
+       
+       <ProgressCircle
+            percent={users.length/50}
+            radius={50}
+            borderWidth={8}
+            color="#3399FF"
+            shadowColor="#999"
+            bgColor="#fff"
+        >
+            <Text style={{ fontSize: 18 }}>{users.length} /50</Text>
+        </ProgressCircle>
+
         <View style={styles.content}>
           <Text>
             {/* {'\n'}email:{JSON.stringify(userEmail)} */}
@@ -85,25 +105,10 @@ const HomeScreen = ({route, navigation}) => {
             {' '}
             현재 {users.length} 명 사용중 {'\n'}
           </Text>
-          <ScrollView style={styles.scrollView}>
-            {users.map(user => (
-              <View key={user.student_num}>
-                <View style={styles.elem}>
-                  <View style={styles.memberName}>
-                    <Text>
-                      {user.name[0] + '**'} 
+         
+<Chart/>
 
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.elem}>
-                  <View style={styles.enterTime}>
-                    <Text>{user.enter_time}</Text>
-                  </View>
-                </View>
-              </View>
-            ))}
-          </ScrollView>
+
           <View>
             <Button
               style={styles.ButtonStyle}
@@ -131,7 +136,9 @@ const HomeScreen = ({route, navigation}) => {
                navigation.navigate('Map')
               }
             />
+          
           </View>
+
         </View>
         <View style={styles.footer} />
       </SafeAreaView>
@@ -140,6 +147,7 @@ const HomeScreen = ({route, navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  
   container: {
     flex: 1,
     //justifyContent: 'center',
@@ -196,6 +204,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor: '#A33B39',
   },
+  
 });
+
+
 
 export default HomeScreen;
