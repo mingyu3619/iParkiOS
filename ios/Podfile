@@ -20,6 +20,8 @@ target 'iPark' do
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   
+  pod 'RNSoundPlayer', :path => '../node_modules/react-native-sound-player'
+
   target 'iParkTests' do
     inherit! :complete
     # Pods for testing
