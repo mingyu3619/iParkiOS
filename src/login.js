@@ -11,12 +11,11 @@ const LoginScreen = ({navigation}) => {
   //const [error, setError] = useState('');
   useEffect(() => {
     logincheck();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function logincheck() {
     AsyncStorage.getItem('isLogin').then(result => {
-      
-    
       if (result == 'true') {
         navigation.reset({
           routes: [
@@ -32,8 +31,6 @@ const LoginScreen = ({navigation}) => {
         });
       }
     });
-    
-    
   }
   return (
     <View style={styles.mainView}>
@@ -43,7 +40,6 @@ const LoginScreen = ({navigation}) => {
       <View style={styles.buttonContainer}>
         <SnsGoogleLogin />
         {/* <Button
-          
           title="admin Login"
           onPress={() => navigation.navigate('admin')}
         /> */}
@@ -89,8 +85,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: 300,
     height: 40,
-    
-    
   },
 });
 

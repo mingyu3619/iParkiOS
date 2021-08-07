@@ -1,20 +1,17 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-catch-shadow */
 import 'react-native-gesture-handler';
-import React, {useEffect, useState, Component, Fragment} from 'react';
+import React, {useEffect, useState} from 'react';
 //import { createStackNavigator } from 'react-navigation';
 import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
-  Text,
-  StatusBar,
   Button,
   unstable_enableLogBox,
   Alert,
   TouchableHighlightBase,
-  TouchableOpacity
 } from 'react-native';
 
 import {
@@ -30,11 +27,11 @@ import {
 } from '@react-native-community/google-signin';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+//import { errorMonitor } from 'stream';
 
 const SnsGoogleLogin = () => {
-  const WEB_CLIENT_ID ='948413181622-md1rtcisch7fbo7423gveaa5rrr6dag8.apps.googleusercontent.com'; //로그인 안도면 한번 보기
-  //"948413181622-33plq5for4rkds86utafp7av9sf4848c.apps.googleusercontent.com";
-  //"948413181622-fuaso7trouk8t1qs3239oc7diqgs6h1o.apps.googleusercontent.com";
+  const WEB_CLIENT_ID =
+    '948413181622-md1rtcisch7fbo7423gveaa5rrr6dag8.apps.googleusercontent.com'; //로그인 안도면 한번 보기
   const [userInfo, setUserInfo] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState(null);
@@ -60,8 +57,10 @@ const SnsGoogleLogin = () => {
       setUserInfo(userInfo);
       setError(null);
       setIsLoggedIn(true);
-      console.log("google Login");
-      console.log(userInfo.user); // userInfo 이용해서 정보 사용해야함
+      console.log('user Info : ', userInfo);
+      console.log('login state : ', isLoggedIn);
+      console.log('error : ', error);
+      console.log('user info : ', userInfo.user); // userInfo 이용해서 정보 사용해야함
 
       await AsyncStorage.setItem('Email', userInfo.user.email);
       await AsyncStorage.setItem('Photo', userInfo.user.photo);
@@ -80,14 +79,9 @@ const SnsGoogleLogin = () => {
               },
             ],
           })
-        : (Alert.alert(
-            '로그아웃 후,학교 이메일로 재로그인하세요!(포털id@korea.ac.kr)',
-            await GoogleSignin.revokeAccess(),
-            await GoogleSignin.signOut(),
-            
-          )
-          )
-          ; // korea.ac.kr 꼴만 출입가능
+        : Alert.alert(
+            '로그아웃 후 학교 이메일로 로그인하세요!!(포털id@korea.ac.kr)',
+          ); // korea.ac.kr 꼴만 출입가능
 
       //밑에는 로그인 실패시 오류 메시지
     } catch (error) {
@@ -114,91 +108,36 @@ const SnsGoogleLogin = () => {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
       setIsLoggedIn(false);
-      Alert.alert('Logout success');
     } catch (error) {
       Alert.alert('Something else went wrong... ', error.toString());
     }
   }
 
-  async function getCurrentUserInfo() {
-    //현재 유저 정보 가져오는 함수,일단은 안씀
-    try {
-      const userInfo = await GoogleSignin.signInSilently();
-      setUserInfo(userInfo);
-    } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_REQUIRED) {
-        // when user hasn't signed in yet
-        Alert.alert('Please Sign in');
-        setIsLoggedIn(false);
-      } else {
-        Alert.alert('Something else went wrong... ', error.toString());
-        setIsLoggedIn(false);
-      }
-    }
-  }
+  // async function getCurrentUserInfo() {
+  //   //현재 유저 정보 가져오는 함수,일단은 안씀
+  //   try {
+  //     const userInfo = await GoogleSignin.signInSilently();
+  //     setUserInfo(userInfo);
+  //   } catch (error) {
+  //     if (error.code === statusCodes.SIGN_IN_REQUIRED) {
+  //       // when user hasn't signed in yet
+  //       Alert.alert('Please Sign in');
+  //       setIsLoggedIn(false);
+  //     } else {
+  //       Alert.alert('Something else went wrong... ', error.toString());
+  //       setIsLoggedIn(false);
+  //     }
+  //   }
+  // }
   return (
-    <View sytle={styles.container}> 
-      <GoogleSigninButton        
+    <View>
+      <GoogleSigninButton
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Light}
         onPress={() => signIn()} //구글 로그인 버튼 누르면 signIn 함수 실행하고 UserInfo를 Home화면으로  보내야 함
       />
-      {/* <Button      
-      
-      title="Logout" onPress={() => signOut()}>
-         <Text style={{color: 'red'}}>Logout</Text>
-      </Button> */}
-      {/* <TouchableOpacity
-          style={styles.button}
-          onPress={() => signOut()}
-        >
-          <Text style={styles.text}>Logout</Text>
-        </TouchableOpacity>
-    */}
-          <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('admin')}
-        >
-          <Text style={styles.text}>Admin Login</Text>
-        </TouchableOpacity>
-        
+      <Button title="Logout" onPress={() => signOut()} />
     </View>
-
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor:"white",
-    shadowColor: '#000',
-    shadowOffset: { width: 100, height: 200 },
-    shadowOpacity: 0.5,
-    shadowRadius: 100,
-    elevation: 200,
-  }
-  ,
-  button: {
-    alignItems: "center",
-    backgroundColor: "white",
-    padding: 8,
-    marginBottom:5,
-    marginHorizontal:4,
-    borderRadius:2,
-    height:39,  
-    
-    
-    
-  
-  },
-  countContainer: {
-    alignItems: "center",
-    padding: 10
-  },
-  text:{
-  color:"#787878",
-  fontWeight:"700"
-  }
-  
-});
-
 export default SnsGoogleLogin;
