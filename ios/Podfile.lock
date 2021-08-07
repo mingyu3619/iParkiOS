@@ -22,7 +22,7 @@ PODS:
   - GTMAppAuth (1.2.2):
     - AppAuth/Core (~> 1.4)
     - GTMSessionFetcher/Core (~> 1.5)
-  - GTMSessionFetcher/Core (1.5.0)
+  - GTMSessionFetcher/Core (1.6.1)
   - Permission-Camera (3.0.4):
     - RNPermissions
   - RCT-Folly (2020.01.13.00):
@@ -40,6 +40,9 @@ PODS:
     - RCT-Folly (= 2020.01.13.00)
     - RCTRequired (= 0.64.1)
     - React-Core (= 0.64.1)
+  - RCTYouTube (2.0.2):
+    - React
+    - YoutubePlayer-in-WKWebView (~> 0.3.1)
   - React (0.64.1):
     - React-Core (= 0.64.1)
     - React-Core/DevSupport (= 0.64.1)
@@ -337,11 +340,14 @@ PODS:
   - RNScreens (3.3.0):
     - React-Core
     - React-RCTImage
+  - RNSoundPlayer (0.11.0):
+    - React
   - RNSVG (9.12.0):
     - React
   - RNVectorIcons (8.1.0):
     - React-Core
   - Yoga (1.14.0)
+  - YoutubePlayer-in-WKWebView (0.3.5)
 
 DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
@@ -352,6 +358,7 @@ DEPENDENCIES:
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
+  - RCTYouTube (from `../node_modules/react-native-youtube`)
   - React (from `../node_modules/react-native/`)
   - React-callinvoker (from `../node_modules/react-native/ReactCommon/callinvoker`)
   - React-Core (from `../node_modules/react-native/`)
@@ -384,6 +391,7 @@ DEPENDENCIES:
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSoundPlayer (from `../node_modules/react-native-sound-player`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -395,6 +403,7 @@ SPEC REPOS:
     - GoogleSignIn
     - GTMAppAuth
     - GTMSessionFetcher
+    - YoutubePlayer-in-WKWebView
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -413,6 +422,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
   RCTTypeSafety:
     :path: "../node_modules/react-native/Libraries/TypeSafety"
+  RCTYouTube:
+    :path: "../node_modules/react-native-youtube"
   React:
     :path: "../node_modules/react-native/"
   React-callinvoker:
@@ -473,6 +484,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSoundPlayer:
+    :path: "../node_modules/react-native-sound-player"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   RNVectorIcons:
@@ -489,11 +502,12 @@ SPEC CHECKSUMS:
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
-  GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
+  GTMSessionFetcher: 36689134877faeb055b27dfa4ccc9ceaa42e029e
   Permission-Camera: 74dc395c37a06ebe915069c5dca954c7a2a5a2e3
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
   RCTRequired: ec2ebc96b7bfba3ca5c32740f5a0c6a014a274d2
   RCTTypeSafety: 22567f31e67c3e088c7ac23ea46ab6d4779c0ea5
+  RCTYouTube: a8bb45705622a6fc9decf64be04128d3658ed411
   React: a241e3dbb1e91d06332f1dbd2b3ab26e1a4c4b9d
   React-callinvoker: da4d1c6141696a00163960906bc8a55b985e4ce4
   React-Core: 46ba164c437d7dac607b470c83c8308b05799748
@@ -524,10 +538,12 @@ SPEC CHECKSUMS:
   RNPermissions: c46788f4cd402287425983e04a4c9bb4356036eb
   RNReanimated: 9c13c86454bfd54dab7505c1a054470bfecd2563
   RNScreens: bf59f17fbf001f1025243eeed5f19419d3c11ef2
+  RNSoundPlayer: 82f62dab0d14eff221a2f55dda3094abd50085d4
   RNSVG: 75670614bca635d3dd64bc267bc199e539cb4fa9
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   Yoga: a7de31c64fe738607e7a3803e3f591a4b1df7393
+  YoutubePlayer-in-WKWebView: cfbf46da51d7370662a695a8f351e5fa1d3e1008
 
-PODFILE CHECKSUM: ce575d9b0d1d39b704b5ae9bc18d1c0c165f302c
+PODFILE CHECKSUM: 8e5f64d99b0246d29854876aba5b6b985817a0fe
 
 COCOAPODS: 1.10.1
