@@ -24,10 +24,10 @@ const Map = ({ navigation }) => {
   ];
   const number = [1, 2, 3, 4, 5];
   const machines = [
-    { id: 1, name: '왼쪽', url: "https://www.youtube.com/watch?v=Wt8jFu0cH5M" },
-    { id: 2, name: '벤치 ', url: "https://gamil.com" },
-    { id: 3, name: '데드', url: "https://youtube.com" },
-    { id: 4, name: '스쿼트', url: "https://google.com" },
+    { id: 1, name: '', url: "https://www.youtube.com/watch?v=Wt8jFu0cH5M" },
+    { id: 2, name: ' ', url: "https://gamil.com" },
+    { id: 3, name: '', url: "https://youtube.com" },
+    { id: 4, name: '', url: "https://google.com" },
     { id: 5, name: '스쿼트', url: "https://google.com" },
   ]
   const machines2 = [
@@ -53,8 +53,8 @@ const Map = ({ navigation }) => {
           {rows.map((row) => {
             return (
               <View style={{ flexDirection: "column", justifyContent: 'center', alignItems: 'center' }}>
-                {Array(row.numSeats).fill(null).map(() => {
-                  return <View style={{ flexDirection: "column", width: 30, height: 30, backgroundColor: '#d2d2d2', margin: 5 }} />;
+                {Array(row.numSeats).fill(null).map((index) => {
+                  return <View key={index} style={{ flexDirection: "column", width: 30, height: 30, backgroundColor: '#d2d2d2', margin: 5 }} />;
                 }
                 )}
               </View>
@@ -66,7 +66,7 @@ const Map = ({ navigation }) => {
 
 
       {/* 러닝머신 있는 부분 */}
-      <View style={{ padding: 20, justifyContent:"flex-end" ,alignSelf:"flex-end", position:"absolute" }}>
+      {/* <View style={{ padding: 20, justifyContent:"flex-end" ,alignSelf:"flex-end", position:"absolute" }}>
           {rows.map((row) => {
             return (
               <View style={{ flexDirection: "column", justifyContent: 'center', alignItems: 'center' }}>
@@ -78,7 +78,7 @@ const Map = ({ navigation }) => {
             );
           })
           }
-        </View>
+        </View> */}
 
       
       {/* 가운데 기구들  */}

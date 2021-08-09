@@ -60,9 +60,7 @@ const SnsGoogleLogin = () => {
       setUserInfo(userInfo);
       setError(null);
       setIsLoggedIn(true);
-      console.log(userInfo);
-      console.log(isLoggedIn);
-      console.log(error);
+      console.log("google Login");
       console.log(userInfo.user); // userInfo 이용해서 정보 사용해야함
 
       await AsyncStorage.setItem('Email', userInfo.user.email);
@@ -139,7 +137,7 @@ const SnsGoogleLogin = () => {
     }
   }
   return (
-    <View>
+    <View sytle={styles.container}> 
       <GoogleSigninButton        
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Light}
@@ -150,13 +148,13 @@ const SnsGoogleLogin = () => {
       title="Logout" onPress={() => signOut()}>
          <Text style={{color: 'red'}}>Logout</Text>
       </Button> */}
-      <TouchableOpacity
+      {/* <TouchableOpacity
           style={styles.button}
           onPress={() => signOut()}
         >
           <Text style={styles.text}>Logout</Text>
         </TouchableOpacity>
-   
+    */}
           <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate('admin')}
@@ -171,19 +169,25 @@ const SnsGoogleLogin = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    paddingHorizontal: 10
-  },
+    backgroundColor:"white",
+    shadowColor: '#000',
+    shadowOffset: { width: 100, height: 200 },
+    shadowOpacity: 0.5,
+    shadowRadius: 100,
+    elevation: 200,
+  }
+  ,
   button: {
     alignItems: "center",
     backgroundColor: "white",
     padding: 8,
-    marginBottom:4,
-    marginHorizontal:5,
+    marginBottom:5,
+    marginHorizontal:4,
     borderRadius:2,
-    height:37,  
-    elevation:15
+    height:39,  
+    
+    
+    
   
   },
   countContainer: {
