@@ -81,6 +81,8 @@ const SnsGoogleLogin = () => {
           })
         : Alert.alert(
             '로그아웃 후 학교 이메일로 로그인하세요!!(포털id@korea.ac.kr)',
+            await GoogleSignin.revokeAccess(),
+            await GoogleSignin.signOut(),
           ); // korea.ac.kr 꼴만 출입가능
 
       //밑에는 로그인 실패시 오류 메시지
