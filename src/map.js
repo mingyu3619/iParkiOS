@@ -1,17 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  ScrollView,
-  ActivityIndicator,
-  Button,
-  Alert,
-  StatusBar,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import React from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
 import Youtube from './youtube';
 
 const Map = ({navigation}) => {

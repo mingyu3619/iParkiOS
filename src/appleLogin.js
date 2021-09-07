@@ -5,6 +5,7 @@ import {
   appleAuth,
 } from '@invertase/react-native-apple-authentication';
 import auth from '@react-native-firebase/auth';
+import {View} from 'react-native';
 
 const onAppleButtonPress = async () => {
   // Start the sign-in request
@@ -31,17 +32,18 @@ const onAppleButtonPress = async () => {
 
 const AppleSignIn = () => {
   return (
-    <AppleButton
-      buttonStyle={AppleButton.Style.WHITE}
-      buttonType={AppleButton.Type.SIGN_IN}
-      style={{
-        width: 160,
-        height: 45,
-      }}
-      onPress={() =>
-        onAppleButtonPress().then(() => console.log('Apple sign-in complete!'))
-      }
-    />
+    <View style={{alignItems: 'center'}}>
+      <AppleButton
+        buttonStyle={AppleButton.Style.WHITE}
+        buttonType={AppleButton.Type.CONTINUE}
+        onPress={() =>
+          onAppleButtonPress().then(() =>
+            console.log('Apple sign-in complete!'),
+          )
+        }
+        style={{width: 300, height: 40}}
+      />
+    </View>
   );
 };
 

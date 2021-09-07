@@ -1,19 +1,7 @@
 import 'react-native-gesture-handler';
 
 import React, {useEffect, useState} from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  ScrollView,
-  ActivityIndicator,
-  Button,
-  Alert,
-  StatusBar,
-  StyleSheet,
-  Image,
-  Dimensions,
-} from 'react-native';
+import {View, StatusBar, StyleSheet, Dimensions} from 'react-native';
 import 'moment-timezone';
 
 import {BarChart} from 'react-native-chart-kit';

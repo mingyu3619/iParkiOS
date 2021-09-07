@@ -132,13 +132,13 @@ const SnsGoogleLogin = () => {
   //   }
   // }
   return (
-    <View>
+    <View style={{alignItems: 'center'}}>
       <GoogleSigninButton
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Light}
         onPress={() => signIn()} //구글 로그인 버튼 누르면 signIn 함수 실행하고 UserInfo를 Home화면으로  보내야 함
       />
-      <Button title="Logout" onPress={() => signOut()} />
+      {/* <Button title="Logout" onPress={() => signOut()} /> */}
     </View>
   );
 };

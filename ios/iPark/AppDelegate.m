@@ -31,7 +31,7 @@ static void InitializeFlipper(UIApplication *application) {
   if ([FIRApp defaultApp] == nil){
     [FIRApp configure];
   }
-
+  // jsCodeLocation = [NSURL URLWithString:@"http://172.16.2.149:8081/index.bundle?platform=ios&dev=true"];
   #ifdef FB_SONARKIT_ENABLED
     InitializeFlipper(application);
   #endif

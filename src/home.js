@@ -5,11 +5,11 @@ import {
   View,
   Text,
   ActivityIndicator,
-  Button,
   Alert,
   StatusBar,
   StyleSheet,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 //import {baseProps} from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
 import {GoogleSignin} from '@react-native-community/google-signin';
@@ -71,7 +71,7 @@ const HomeScreen = ({route, navigation}) => {
     //REST API
   } else {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.mainContainer}>
         <View style={{flexDirection: 'row'}}>
           <View style={styles.container}>
             <View style={styles.radiusbar}>
@@ -115,31 +115,35 @@ const HomeScreen = ({route, navigation}) => {
           </View>
           <Chart />
 
-          <View style={styles.container}>
-            <Button
-              style={styles.ButtonStyle}
-              color="black"
-              title="QR Code"
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.button}
               onPress={() =>
                 //navigation.reset({routes: [{name: 'QRGenerate'}]})
                 navigation.navigate('QRGenerate', {
                   email: userEmail,
                   photo: userPhoto,
                 })
-              }
-            />
-            <Button
-              color="black"
-              title="Logout"
+              }>
+              <Text style={styles.text}>QR Code</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.button}
               onPress={() =>
                 signOut() ? Alert.alert('Logout success') : Alert.alert('error')
-              }
-            />
-            <Button
+              }>
+              <Text style={styles.text}>Logout</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.button}
               color="black"
               title="map"
-              onPress={() => navigation.navigate('Map')}
-            />
+              onPress={() => navigation.navigate('Map')}>
+              <Text style={styles.text}>Center Map</Text>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.footer} />
@@ -149,12 +153,30 @@ const HomeScreen = ({route, navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+  },
+  button: {
+    width: 100,
+    height: 50,
+    backgroundColor: '#A33B39',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 25,
+    marginHorizontal: 5,
+  },
+  text: {
+    color: 'white',
+  },
   radiusbar: {
     width: 100,
-    height: 20,
+    height: 25,
     backgroundColor: '#A33B39',
-    borderRadius: 40,
+    borderBottomWidth: 0.5,
+    borderRadius: 25,
+    justifyContent: 'center',
     alignItems: 'center',
+    padding: 4,
     marginBottom: 5,
   },
   container: {
@@ -162,57 +184,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: StatusBar.currentHeight,
-    paddingTop: 20,
+    paddingTop: 40,
     //height: 1000,
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    marginTop: 50,
   },
   loading: {
     flex: 1,
     alignContent: 'center',
     justifyContent: 'center',
   },
-  content: {
-    flex: 1,
-    alignItems: 'center',
-  },
   footer: {
     height: 60,
     backgroundColor: '#A33B39',
-    marginTop: 20,
-  },
-  elem: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderColor: '#eee',
-    borderBottomWidth: 0.5,
-    padding: 5,
-  },
-  memberName: {
-    //flexDirection: 'row',
-    alignItems: 'center',
-  },
-  enterTime: {
-    padding: 8,
-    borderRadius: 5,
-  },
-  scrollView: {
-    width: '80%',
-    flex: 1,
-    flexDirection: 'column', // row
-    backgroundColor: 'white',
-    paddingVertical: 20,
-    paddingLeft: 20,
-    marginBottom: 20,
-  },
-  appTitle: {
-    color: '#fff',
-    fontSize: 36,
-    marginTop: 30,
-    marginBottom: 30,
-    fontWeight: '300',
-    textAlign: 'center',
-    backgroundColor: '#A33B39',
+    // marginTop: 20,
   },
 });
 
