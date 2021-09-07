@@ -1,6 +1,7 @@
 import React, {Component, useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Button, TextInput, Alert} from 'react-native';
 import SnsGoogleLogin from './GoogleLogin';
+import AppleSignIn from './appleLogin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const LoginScreen = ({navigation}) => {
   const [userEmail, setUserEmail] = useState(null);
@@ -38,6 +39,7 @@ const LoginScreen = ({navigation}) => {
       <Text style={styles.text}>교내 이메일로 로그인해주세요</Text>
       <Text style={styles.text}>Please sign in using korea univ email</Text>
       <View style={styles.buttonContainer}>
+        <AppleSignIn />
         <SnsGoogleLogin />
         {/* <Button
           title="admin Login"
