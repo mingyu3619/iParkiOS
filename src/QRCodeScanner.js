@@ -2,7 +2,7 @@
 import 'react-native-gesture-handler';
 import Moment from 'react-moment';
 import 'moment-timezone';
-import React, {Component, Fragment, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
   AppRegistry,
@@ -11,13 +11,12 @@ import {
   Dimensions,
   Image,
   View,
-  Button
+  Button,
 } from 'react-native';
-import  SoundPlayer  from  'react-native-sound-player' 
+import SoundPlayer from 'react-native-sound-player';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
 import moment from 'moment-timezone';
-
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
@@ -36,14 +35,14 @@ const ScanScreen = () => {
 
   const API_URL = 'http://cxz3619.pythonanywhere.com/';
 
-    const onSuccess = e => {
-    if(e.data.substring(0,8)=='{"email"'){
-    const userInfo = JSON.parse(e.data); 
-    setEmail(userInfo.email.replace('.ac.kr', '').toString()); //ac.kr 꼴 삭제 --> 장고에서 @korea.ac.kr 꼴 인식 못함(http://163.152.223.34:8000/MemberData/cxz3619@korea일떄나 개인 페이지 인식가능 )
-    setphotoURL(userInfo.photo); //구글 프로필 이미지
-    scanned ? setScanned(false) : setScanned(true); //큐알 인식시 state 바꿔주기
+  const onSuccess = e => {
+    if (e.data.substring(0, 8) == '{"email"') {
+      const userInfo = JSON.parse(e.data);
+      setEmail(userInfo.email.replace('.ac.kr', '').toString()); //ac.kr 꼴 삭제 --> 장고에서 @korea.ac.kr 꼴 인식 못함(http://163.152.223.34:8000/MemberData/cxz3619@korea일떄나 개인 페이지 인식가능 )
+      setphotoURL(userInfo.photo); //구글 프로필 이미지
+      scanned ? setScanned(false) : setScanned(true); //큐알 인식시 state 바꿔주기
     }
-  }; 
+  };
   // 스캐너 초기화  부분
   let scanner;
 
@@ -53,7 +52,7 @@ const ScanScreen = () => {
     try {
       console.log(API_URL + 'memberData/' + email.replace('"', ''));
       fetch(API_URL + 'memberData/' + email.replace(/\"/gi, '')) //qr 인식시 큰따옴표 삭제 , 전체 MeberData에 get(정보있는지,없을때도 예외처리 해줘야 함)
-        .then(response => response.json()) 
+        .then(response => response.json())
         .then(data => {
           console.log('data.phnoe_num:', data.phone_num);
           setLoading(false);
@@ -82,10 +81,10 @@ const ScanScreen = () => {
                   "API_URL+'liveData/'+phone_num:",
                   API_URL + 'liveData/' + data.phone_num,
                 );
-                console.log("****liveData_data_live",data_live  );
-                console.log("****liveData_data_live_type",typeof data_live  );
-               
-                /// live Data에 전화번호 보내고 있으면 지우고(if문) , 아예 없는 데이터면 error 음내고(else if), 있으면 그대로 넣음(else문) 
+                console.log('****liveData_data_live', data_live);
+                console.log('****liveData_data_live_type', typeof data_live);
+
+                /// live Data에 전화번호 보내고 있으면 지우고(if문) , 아예 없는 데이터면 error 음내고(else if), 있으면 그대로 넣음(else문)
                 if (
                   Object.entries(data_live).toString() ==
                   'phone_num,live data with this phone num already exists.'
@@ -101,18 +100,14 @@ const ScanScreen = () => {
                     .catch(
                       error => console.log('Delete_livdData_error:', error), //문제되는 부분[SyntaxError: JSON Parse error: Unexpected EOF]
                     );
-                    SoundPlayer.playSoundFile('out', 'mp3'); //퇴장 시 소리 남 
-                }
-
-                else if(
+                  SoundPlayer.playSoundFile('out', 'mp3'); //퇴장 시 소리 남
+                } else if (
                   Object.entries(data_live).toString() ==
                   'student_num,This field is required.'
-                ){
-                  SoundPlayer.playSoundFile('error', 'mp3') //데이터 베이스에 없는 사람 출입 시
-                }
-
-                else{
-                  SoundPlayer.playSoundFile('in', 'mp3')    // 정상적인 입장
+                ) {
+                  SoundPlayer.playSoundFile('error', 'mp3'); //데이터 베이스에 없는 사람 출입 시
+                } else {
+                  SoundPlayer.playSoundFile('in', 'mp3'); // 정상적인 입장
                   console.log(API_URL + 'covidRecord/');
                   fetch(API_URL + 'covidRecord/', {
                     method: 'POST',
@@ -156,7 +151,6 @@ const ScanScreen = () => {
                 //     .catch(error => console.log('covid_error:', error));
                 //   //covid
                 // }
-
               })
               .catch(error => console.log('liveData_data_Input_error:', error));
           } catch (e) {
@@ -238,11 +232,9 @@ const ScanScreen = () => {
             </View>
 
             <View style={styles.bottomOverlay} />
-            
           </View>
         }
       />
-
     </View>
   );
 };

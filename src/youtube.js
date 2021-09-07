@@ -11,27 +11,22 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  
 } from 'react-native';
-import { WebView } from "react-native-webview";
+import {WebView} from 'react-native-webview';
 
 const Youtube = ({route}) => {
-console.log("WebView")
-const url = route.params.url;
-console.log(url);
+  console.log('WebView');
+  const url = route.params.url;
+  console.log(url);
 
-return(
-
-<WebView
-  allowsFullscreenVideo
-  allowsInlineMediaPlayback
-  mediaPlaybackRequiresUserAction  
-  source={{ uri:url}}
-  
-/>
-
-);
-
-}
+  return (
+    <WebView
+      allowsFullscreenVideo
+      allowsInlineMediaPlayback
+      mediaPlaybackRequiresUserAction
+      source={{uri: url}}
+    />
+  );
+};
 
 export default Youtube;

@@ -1,7 +1,9 @@
-import React, {Component, useState, useEffect} from 'react';
-import {View, Text, StyleSheet, Button, TextInput, Alert} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
 import SnsGoogleLogin from './GoogleLogin';
+import AppleSignIn from './appleLogin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 const LoginScreen = ({navigation}) => {
   const [userEmail, setUserEmail] = useState(null);
   const [userPhoto, setUserPhoto] = useState(null);
@@ -38,11 +40,14 @@ const LoginScreen = ({navigation}) => {
       <Text style={styles.text}>교내 이메일로 로그인해주세요</Text>
       <Text style={styles.text}>Please sign in using korea univ email</Text>
       <View style={styles.buttonContainer}>
+        <AppleSignIn />
         <SnsGoogleLogin />
-        {/* <Button
-          title="admin Login"
-          onPress={() => navigation.navigate('admin')}
-        /> */}
+        <TouchableOpacity
+          style={styles.button}
+          activeOpacity={0.8}
+          onPress={() => navigation.navigate('admin')}>
+          <Text style={styles.btntext}>관리자 로그인</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -59,8 +64,7 @@ const styles = StyleSheet.create({
     fontSize: 50,
     fontWeight: 'bold',
     color: 'white',
-    marginBottom: 50,
-    marginTop: -100,
+    marginBottom: 40,
   },
   text: {
     color: 'white',
@@ -76,9 +80,22 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   buttonContainer: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    // flexDirection: 'column',
+    // justifyContent: 'space-between',
     margin: 30,
+  },
+  button: {
+    width: 150,
+    height: 50,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    marginTop: 50,
+    marginHorizontal: 100,
+  },
+  btntext: {
+    color: '#A33B39',
   },
   LoginButton: {
     backgroundColor: 'white',
