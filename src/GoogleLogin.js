@@ -3,29 +3,14 @@
 import 'react-native-gesture-handler';
 import React, {useEffect, useState} from 'react';
 //import { createStackNavigator } from 'react-navigation';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Button,
-  unstable_enableLogBox,
-  Alert,
-  TouchableHighlightBase,
-} from 'react-native';
-
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
+import {View, Alert} from 'react-native';
 import HomeScreen from './home';
 import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-community/google-signin';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //import { errorMonitor } from 'stream';
 
@@ -65,17 +50,18 @@ const SnsGoogleLogin = () => {
       await AsyncStorage.setItem('Email', userInfo.user.email);
       await AsyncStorage.setItem('Photo', userInfo.user.photo);
       //await AsyncStorage.setItem('PhotoURL', userInfo.user.photoURL);
-
-      userInfo.user.email.split('@')[1] == 'korea.ac.kr'
+      navigation.reset({
+        routes: [
+          {
+            name: 'Home',
+          },
+        ],
+      }); /*
+       userInfo.user.email.split('@')[1] == 'korea.ac.kr'
         ? navigation.reset({
             routes: [
               {
                 name: 'Home',
-                /*, params: {
-        email: userInfo.user.email,
-        photo: userInfo.user.photo,
-        photoURL: userInfo.user.photoURL
-      }*/
               },
             ],
           })
@@ -84,7 +70,7 @@ const SnsGoogleLogin = () => {
             await GoogleSignin.revokeAccess(),
             await GoogleSignin.signOut(),
           ); // korea.ac.kr 꼴만 출입가능
-
+        */
       //밑에는 로그인 실패시 오류 메시지
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {

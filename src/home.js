@@ -136,14 +136,14 @@ const HomeScreen = ({route, navigation}) => {
               }>
               <Text style={styles.text}>Logout</Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               activeOpacity={0.8}
               style={styles.button}
               color="black"
               title="map"
               onPress={() => navigation.navigate('Map')}>
               <Text style={styles.text}>Center Map</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
         <View style={styles.footer} />

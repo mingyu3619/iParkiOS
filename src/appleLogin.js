@@ -6,6 +6,7 @@ import {
 } from '@invertase/react-native-apple-authentication';
 import auth from '@react-native-firebase/auth';
 import {View} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const onAppleButtonPress = async () => {
   // Start the sign-in request
@@ -31,6 +32,8 @@ const onAppleButtonPress = async () => {
 };
 
 const AppleSignIn = () => {
+  const navigation = useNavigation(); //이거 있어야 부모 컴포넌트한테 navigation 할 수 있댔음
+
   return (
     <View style={{alignItems: 'center'}}>
       <AppleButton
@@ -38,7 +41,14 @@ const AppleSignIn = () => {
         buttonType={AppleButton.Type.CONTINUE}
         onPress={() =>
           onAppleButtonPress().then(() =>
-            console.log('Apple sign-in complete!'),
+            // console.log('Apple sign-in complete!')
+            navigation.reset({
+              routes: [
+                {
+                  name: 'Home',
+                },
+              ],
+            }),
           )
         }
         style={{width: 300, height: 40}}
