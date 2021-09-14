@@ -66,7 +66,7 @@ const Map = ({ navigation }) => {
 
 
       {/* 러닝머신 있는 부분 */}
-      {/* <View style={{ padding: 20, justifyContent:"flex-end" ,alignSelf:"flex-end", position:"absolute" }}>
+      <View style={{ padding: 20, justifyContent:"flex-end" ,alignSelf:"flex-end", position:"absolute" }}>
           {rows.map((row) => {
             return (
               <View style={{ flexDirection: "column", justifyContent: 'center', alignItems: 'center' }}>
@@ -78,7 +78,7 @@ const Map = ({ navigation }) => {
             );
           })
           }
-        </View> */}
+        </View>
 
       
       {/* 가운데 기구들  */}

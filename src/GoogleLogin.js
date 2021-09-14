@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-catch-shadow */
-import 'react-native-gesture-handler';
+// import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
 import React, {useEffect, useState, Component, Fragment} from 'react';
 //import { createStackNavigator } from 'react-navigation';
 import {
@@ -14,7 +15,7 @@ import {
   unstable_enableLogBox,
   Alert,
   TouchableHighlightBase,
-  TouchableOpacity
+  
 } from 'react-native';
 
 import {

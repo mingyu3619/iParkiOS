@@ -47,11 +47,8 @@ const Chart = () => {
                     const mapping_data = data.map(item => Object({ 'date': item.enter_time }));
                     //날짜필터하는 방법 //data.filter(item => item.enter_time <= "2021/07/25");                     
                     
-
-//여기
                     var temp_arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                    mapping_data.map(user => {
-                        
+                    mapping_data.map(user => {                       
 
                         if (parseInt(user.date.substring(11, 13), 10) <= 8)
                             temp_arr[parseInt(user.date.substring(11, 13), 10) - 6] += 1
@@ -61,70 +58,7 @@ const Chart = () => {
                     });
                     console.log("temp_arr:", temp_arr);
                     setrecord(temp_arr);
-//여기
 
-/////////////////////////////////////////////////////
-
-                    // const promise_time_chart = new Promise((resolve, reject) => {
-
-                    //     setTimeout(function () {
-                    //         console.log("promise_time_chart_users:",mapping_data)
-                    //         var temp_arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                    //         mapping_data.map(user => {
-                    //             console.log(parseInt(user.date.substring(11, 13),10));
-                                
-                    //             if (parseInt(user.date.substring(11, 13), 10) <= 8)
-                    //                 temp_arr[parseInt(user.date.substring(11, 13), 10) - 6] += 1
-                    //             if((parseInt(user.date.substring(11, 13), 10)  >= 13)) {
-                    //                 temp_arr[parseInt(user.date.substring(11, 13), 10) - 10] += 1
-                    //             }
-                    //         });
-                    //         console.log("temp_arr:", temp_arr)
-                    //         setrecord(temp_arr);
-                    //     }, 3000)
-                    //     setTimeout(function () {
-                    //         resolve(1)
-                    //     }, 5000)
-                    // })
-
-                    // const promise1 = new Promise((resolve, reject) => {
-                    //     setTimeout(() => {
-                    //         resolve('a');
-                    //     }, 1000);
-                    // });
-
-                    // const promise2 = new Promise((resolve, reject) => {
-                    //     setTimeout(() => {
-                    //         resolve('b');
-                    //     }, 2000);
-                    // });
-
-                    // promise1.then(values => {
-                    //     console.log("a done")
-                    //     promise2.then(values => {
-                    //         console.log("b done")
-                    //     })
-                    // })
-
-                    // const promise_setUsers = new Promise((resolve, reject) => {
-                    //     setUsers(mapping_data)
-                    //     setTimeout(function () {
-                    //         resolve(1)
-                    //     }, 500)
-                    // })
-
-                    // Promise.all(
-                    //     [
-                    //         promise_time_chart,
-                    //         promise_setUsers
-                    //     ]
-                    // ).then(values => {
-                    //     console.log("done!")
-                    // })
-
-
-
-/////////////////////////////////////////////////////
 
                 });
 
