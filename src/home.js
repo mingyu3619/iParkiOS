@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   View,
@@ -136,14 +136,14 @@ const HomeScreen = ({route, navigation}) => {
               }>
               <Text style={styles.text}>Logout</Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               activeOpacity={0.8}
               style={styles.button}
               color="black"
               title="map"
               onPress={() => navigation.navigate('Map')}>
               <Text style={styles.text}>Center Map</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
         <View style={styles.footer} />
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   },
   radiusbar: {
     width: 100,
-    height: 30,
+    height: 25,
     backgroundColor: '#A33B39',
     borderBottomWidth: 0.5,
     borderRadius: 25,

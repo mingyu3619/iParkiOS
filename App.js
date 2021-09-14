@@ -16,8 +16,9 @@ import QRCodeGenerator from './src/QRCodeGenerator';
 import SnsGoogleLogin from './src/GoogleLogin';
 import {roundToNearestPixel} from 'react-native/Libraries/Utilities/PixelRatio';
 import Map from './src/map';
-import Youtube  from './src/youtube';
-import Chart from "./src/chart";
+import Youtube from './src/youtube';
+import Chart from './src/chart';
+import AppleSignIn from './src/appleLogin';
 const Stack = createStackNavigator();
 // Screen이라는 프로퍼티를 리턴할때 스크린 컴포넌트를 명시해주는데 네비게이션 props을 각각의 스크린 컴포넌트에 넘겨주게 된다.
 // 따라서 this.props.navigation을 사용가능하게 해준다.
@@ -60,20 +61,10 @@ const App = () => {
         <Stack.Screen name="QRscan" component={ScanScreen} />
         <Stack.Screen name="QRGenerate" component={QRCodeGenerator} />
         <Stack.Screen name="GoogleSign" component={SnsGoogleLogin} />
+        <Stack.Screen name="appleLogin" component={AppleSignIn} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
-
-// const styles = StyleSheet.create({
-//   mainView: {
-//     backgroundColor: 'pink',
-//     height: '100%',
-//     alignItems: 'center',
-//   },
-//   titleView: {
-//     paddingTop: '50%',
-//   },
-// });
 
 export default App;
