@@ -1,2 +1,2 @@
-# iParkiOS
-IPark Health Center App
+# iPark
+Korea University IPark Health Center App
