@@ -1,5 +1,5 @@
 # iPark
 Korea University IPark Health Center App
 
-# Tech Stack 
+## Tech Stack 
 - React Natvie, Django, SQLite
