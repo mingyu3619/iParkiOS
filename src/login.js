@@ -5,12 +5,14 @@ import AppleSignIn from './appleLogin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 const LoginScreen = ({navigation}) => {
+  /*
   const [userEmail, setUserEmail] = useState(null);
   const [userPhoto, setUserPhoto] = useState(null);
   // const [userPhotoURL, setUserPhotoURL] = useState(null);
 
   //const [loading, setLoading] = useState(false);
   //const [error, setError] = useState('');
+  */
   useEffect(() => {
     logincheck();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -18,7 +20,7 @@ const LoginScreen = ({navigation}) => {
 
   function logincheck() {
     AsyncStorage.getItem('isLogin').then(result => {
-      if (result == 'true') {
+      if (result === 'true') {
         navigation.reset({
           routes: [
             {
