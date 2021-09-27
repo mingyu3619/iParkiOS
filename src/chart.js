@@ -57,7 +57,7 @@ const Chart = () => {
      
     return (
 
-        <View style>
+        <View style={{flex:1,padding:5}}>
             <BarChart
                 data={{
                     labels: ['6', '7', '8', '13', '14', '15', '16', '17', '18', '19', '20', '21'],
@@ -70,7 +70,8 @@ const Chart = () => {
                 }}
                 flatColor={true}
                 width={Dimensions.get('window').width - 16}
-                height={220}
+                height={Dimensions.get('window').width/2}
+                
                 showBarTops={false}
                 fromZero={true}
                 chartConfig={{
@@ -96,62 +97,5 @@ const Chart = () => {
 
     );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    //justifyContent: 'center',
-    //alignItems: 'center',
-    paddingTop: StatusBar.currentHeight,
-    //height: 1000,
-  },
-  loading: {
-    flex: 1,
-    alignContent: 'center',
-    justifyContent: 'center',
-  },
-  content: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  footer: {
-    height: 60,
-    backgroundColor: '#A33B39',
-    marginTop: 20,
-  },
-  elem: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderColor: '#eee',
-    borderBottomWidth: 0.5,
-    padding: 5,
-  },
-  memberName: {
-    //flexDirection: 'row',
-    alignItems: 'center',
-  },
-  enterTime: {
-    padding: 8,
-    borderRadius: 5,
-  },
-  scrollView: {
-    width: '80%',
-    flex: 1,
-    flexDirection: 'column', // row
-    backgroundColor: 'white',
-    paddingVertical: 20,
-    paddingLeft: 20,
-    marginBottom: 20,
-  },
-  appTitle: {
-    color: '#fff',
-    fontSize: 36,
-    marginTop: 30,
-    marginBottom: 30,
-    fontWeight: '300',
-    textAlign: 'center',
-    backgroundColor: '#A33B39',
-  },
-});
+
 export default Chart;
