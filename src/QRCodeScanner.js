@@ -12,11 +12,9 @@ import {
   Dimensions,
   Image,
   View,
-  Button,
 } from 'react-native';
 import SoundPlayer from 'react-native-sound-player';
 import QRCodeScanner from 'react-native-qrcode-scanner';
-import {RNCamera} from 'react-native-camera';
 import moment from 'moment-timezone';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -26,18 +24,16 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const ScanScreen = () => {
-  const [email, setEmail] = useState(null); //email 담아서 fetch(post)때 쓸라고
+  const [email, setEmail] = useState(''); //email 담아서 fetch(post)때 쓸라고
   const [users, setUsers] = useState([]); //memberData 에서 user정보 받기 위함
   const [photoURL, setphotoURL] = useState(null); //google 이미지
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   const [scanned, setScanned] = useState(false);
 
-  const API_URL = 'http://cxz3619.pythonanywhere.com/';
+  const API_URL = 'https://cxz3619.pythonanywhere.com/';
 
   const onSuccess = e => {
-    if (e.data.substring(0, 8) == '{"email"') {
+    if (e.data.substring(0, 8) === '{"email"') {
       const userInfo = JSON.parse(e.data);
       setEmail(userInfo.email.replace('.ac.kr', '').toString());
       //ac.kr 꼴 삭제 --> 장고에서 @korea.ac.kr 꼴 인식 못함(http://163.152.223.34:8000/MemberData/cxz3619@korea일떄나 개인 페이지 인식가능 )
@@ -57,7 +53,7 @@ const ScanScreen = () => {
         .then(response => response.json())
         .then(data => {
           console.log('data.phnoe_num:', data.phone_num);
-          setLoading(false);
+
           console.log('user info:', data);
           setUsers(data);
           try {
@@ -99,9 +95,10 @@ const ScanScreen = () => {
                     .then(data_live_then =>
                       console.log('Delete_livdData_data:', data_live_then),
                     )
-                    .catch(
-                      error => console.log('Delete_livdData_error:', error), //문제되는 부분[SyntaxError: JSON Parse error: Unexpected EOF]
-                    );
+                    .catch(error => {
+                      console.log('Delete_livdData_error:', error); //문제되는 부분[SyntaxError: JSON Parse error: Unexpected EOF]
+                      throw error;
+                    });
                   SoundPlayer.playSoundFile('out', 'mp3'); //퇴장 시 소리 남
                 } else if (
                   Object.entries(data_live).toString() ===
@@ -127,41 +124,25 @@ const ScanScreen = () => {
                   })
                     .then(response => response.json())
                     .then(data => console.log('covid_data:', data))
-                    .catch(error => console.log('covid_error:', error));
+                    .catch(error => {
+                      console.log('covid_error:', error);
+                      throw error;
+                    });
                 }
-
-                // if (data.phone_num) {
-                //   // 코로나 기록 테이블로 전송(출입할때 마다)
-                //   //covid 실행
-                //   console.log(API_URL + 'covidRecord/');
-                //   fetch(API_URL + 'covidRecord/', {
-                //     method: 'POST',
-                //     headers: {
-                //       Accept: 'application/json',
-                //       'Content-Type': 'application/json',
-                //     },
-                //     body: JSON.stringify({
-                //       phone_num: data.phone_num,
-                //       name: data.name,
-                //       major: data.major,
-                //       student_num: data.student_num,
-                //       enter_time: moment().format('YYYY/MM/DD HH:mm:ss'),
-                //     }),
-                //   })
-                //     .then(response => response.json())
-                //     .then(data => console.log('covid_data:', data))
-                //     .catch(error => console.log('covid_error:', error));
-                //   //covid
-                // }
               })
-              .catch(error => console.log('liveData_data_Input_error:', error));
+              .catch(error => {
+                console.log('liveData_data_Input_error:', error);
+                throw error;
+              });
           } catch (e) {
             setError(e);
             console.log('liveData 접속 error:', error);
+            throw error;
           }
         });
     } catch (e) {
       setError(e);
+      throw e;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scanned]);
@@ -201,12 +182,12 @@ const ScanScreen = () => {
                 source={{uri: photoURL}}
               />
               <Text style={{fontSize: 20, color: 'white'}}>
+                {console.log(typeof users.email)}
                 {users.email ? (
                   <Text>
-                    {' '}
                     {JSON.stringify(users.name)}
                     {JSON.stringify(users.reserve_product)}
-                    {JSON.stringify(users.student_num)}{' '}
+                    {JSON.stringify(users.student_num)}
                   </Text>
                 ) : (
                   <Text> QR CODE를 인식 시켜주세요.! </Text>
