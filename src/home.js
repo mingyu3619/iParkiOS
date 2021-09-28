@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import 'react-native-gesture-handler';
 import React, {useEffect, useState} from 'react';
 import {
@@ -6,7 +7,6 @@ import {
   Text,
   ActivityIndicator,
   Alert,
-  StatusBar,
   StyleSheet,
   Image,
   TouchableOpacity,
@@ -72,14 +72,14 @@ const HomeScreen = ({route, navigation}) => {
   } else {
     return (
       <SafeAreaView style={styles.mainContainer}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', position: 'relative', flex: 1}}>
           <View style={styles.container}>
             <View style={styles.radiusbar}>
               <Text style={{color: 'white'}}>실시간 이용자</Text>
             </View>
 
             <ProgressCircle
-              percent={users.length / 50*100}
+              percent={(users.length / 50) * 100}
               radius={50}
               borderWidth={8}
               color="#3399FF"
@@ -100,34 +100,36 @@ const HomeScreen = ({route, navigation}) => {
           </View>
         </View>
 
-        <View style={styles.container}>
-          <View style={styles.radiusbar}>
-            <Text style={{color: 'white'}}>이용시간 분포</Text>
+        <View style={{flex: 1}}>
+          <View style={styles.container}>
+            <View style={styles.radiusbar}>
+              <Text style={{color: 'white'}}>이용시간 분포</Text>
+            </View>
+            <Chart />
           </View>
-          <Chart />
-
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={styles.button}
-              onPress={() =>
-                //navigation.reset({routes: [{name: 'QRGenerate'}]})
-                navigation.navigate('QRGenerate', {
-                  email: userEmail,
-                  photo: userPhoto,
-                })
-              }>
-              <Text style={styles.text}>QR Code</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={styles.button}
-              onPress={() =>
-                signOut() ? Alert.alert('Logout success') : Alert.alert('error')
-              }>
-              <Text style={styles.text}>Logout</Text>
-            </TouchableOpacity>
-            {/* <TouchableOpacity
+        </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.button}
+            onPress={() =>
+              //navigation.reset({routes: [{name: 'QRGenerate'}]})
+              navigation.navigate('QRGenerate', {
+                email: userEmail,
+                photo: userPhoto,
+              })
+            }>
+            <Text style={styles.text}>QR Code</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.button}
+            onPress={() =>
+              signOut() ? Alert.alert('Logout success') : Alert.alert('error')
+            }>
+            <Text style={styles.text}>Logout</Text>
+          </TouchableOpacity>
+          {/* <TouchableOpacity
               activeOpacity={0.8}
               style={styles.button}
               color="black"
@@ -135,8 +137,8 @@ const HomeScreen = ({route, navigation}) => {
               onPress={() => navigation.navigate('Map')}>
               <Text style={styles.text}>Center Map</Text>
             </TouchableOpacity> */}
-          </View>
         </View>
+
         <View style={styles.footer} />
       </SafeAreaView>
     );
@@ -146,10 +148,11 @@ const HomeScreen = ({route, navigation}) => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
+    position: 'relative',
   },
   button: {
     width: 100,
-    height: 50,
+    height: 40,
     backgroundColor: '#A33B39',
     justifyContent: 'center',
     alignItems: 'center',
@@ -161,27 +164,29 @@ const styles = StyleSheet.create({
   },
   radiusbar: {
     width: 100,
-    height: 25,
+    height: 30,
     backgroundColor: '#A33B39',
     borderBottomWidth: 0.5,
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 4,
+    padding: 2,
     marginBottom: 5,
   },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: StatusBar.currentHeight,
-    paddingTop: 40,
+    // padding: StatusBar.currentHeight,
+    paddingTop: 5,
     //height: 1000,
   },
   buttonContainer: {
-    flex: 1,
+    flex: 0.5,
     flexDirection: 'row',
-    marginTop: 50,
+    marginTop: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   loading: {
     flex: 1,
@@ -189,7 +194,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   footer: {
-    height: 60,
+    height: 55,
     backgroundColor: '#A33B39',
     // marginTop: 20,
   },
