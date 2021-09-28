@@ -79,7 +79,7 @@ const HomeScreen = ({ route, navigation }) => {
             </View>
 
             <ProgressCircle
-              percent={users.length / 50}
+              percent={users.length / 50*100}
               radius={50}
               borderWidth={8}
               color="#3399FF"
