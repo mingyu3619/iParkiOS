@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 'use strict';
 import 'react-native-gesture-handler';
 import Moment from 'react-moment';
@@ -38,7 +39,8 @@ const ScanScreen = () => {
   const onSuccess = e => {
     if (e.data.substring(0, 8) == '{"email"') {
       const userInfo = JSON.parse(e.data);
-      setEmail(userInfo.email.replace('.ac.kr', '').toString()); //ac.kr 꼴 삭제 --> 장고에서 @korea.ac.kr 꼴 인식 못함(http://163.152.223.34:8000/MemberData/cxz3619@korea일떄나 개인 페이지 인식가능 )
+      setEmail(userInfo.email.replace('.ac.kr', '').toString());
+      //ac.kr 꼴 삭제 --> 장고에서 @korea.ac.kr 꼴 인식 못함(http://163.152.223.34:8000/MemberData/cxz3619@korea일떄나 개인 페이지 인식가능 )
       setphotoURL(userInfo.photo); //구글 프로필 이미지
       scanned ? setScanned(false) : setScanned(true); //큐알 인식시 state 바꿔주기
     }
@@ -86,7 +88,7 @@ const ScanScreen = () => {
 
                 /// live Data에 전화번호 보내고 있으면 지우고(if문) , 아예 없는 데이터면 error 음내고(else if), 있으면 그대로 넣음(else문)
                 if (
-                  Object.entries(data_live).toString() ==
+                  Object.entries(data_live).toString() ===
                   'phone_num,live data with this phone num already exists.'
                 ) {
                   // 이미 있는 정보면 저런식으로 반환값이 옴
@@ -102,7 +104,7 @@ const ScanScreen = () => {
                     );
                   SoundPlayer.playSoundFile('out', 'mp3'); //퇴장 시 소리 남
                 } else if (
-                  Object.entries(data_live).toString() ==
+                  Object.entries(data_live).toString() ===
                   'student_num,This field is required.'
                 ) {
                   SoundPlayer.playSoundFile('error', 'mp3'); //데이터 베이스에 없는 사람 출입 시
@@ -164,6 +166,12 @@ const ScanScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scanned]);
 
+  /**
+   * function for QRC Scanner slide animation
+   * @param {*} translationType
+   * @param {*} fromValue
+   * @returns
+   */
   const makeSlideOutTranslation = (translationType, fromValue) => {
     return {
       from: {
@@ -178,7 +186,7 @@ const ScanScreen = () => {
   return (
     <View>
       <QRCodeScanner
-        ref={camera => (scanner = camera)} // qr스캐너 초기화 할떄 쓰는 코드던데 잘은 모름;;;
+        ref={camera => (scanner = camera)} // qr스캐너 초기화
         onRead={e => onSuccess(e)} //QR코드 읽으면 어떤 함수 실행할지
         showMarker={true} //리더기에 초록색 사각형
         reactivate={true} //카메라 재 반응
@@ -201,7 +209,7 @@ const ScanScreen = () => {
                     {JSON.stringify(users.student_num)}{' '}
                   </Text>
                 ) : (
-                  <Text> QR CODE를 인식 시켜주세요. </Text>
+                  <Text> QR CODE를 인식 시켜주세요.! </Text>
                 )}
               </Text>
             </View>
@@ -232,11 +240,9 @@ const ScanScreen = () => {
             </View>
 
             <View style={styles.bottomOverlay} />
-            
           </View>
         }
       />
-
     </View>
   );
 };
