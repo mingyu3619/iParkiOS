@@ -79,7 +79,7 @@ const HomeScreen = ({route, navigation}) => {
             </View>
 
             <ProgressCircle
-              percent={(users.length / 50) * 100}
+              percent={users.length / 50*100}
               radius={50}
               borderWidth={8}
               color="#3399FF"
@@ -101,15 +101,6 @@ const HomeScreen = ({route, navigation}) => {
         </View>
 
         <View style={styles.container}>
-          {/* <Text>
-            {'\n'}현재 사용자 목록:{'\n'}
-          </Text> */}
-
-          {/* <Text>
-            {' '}
-            현재 {users.length} 명 사용중 {'\n'}
-          </Text> */}
-
           <View style={styles.radiusbar}>
             <Text style={{color: 'white'}}>이용시간 분포</Text>
           </View>

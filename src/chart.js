@@ -12,90 +12,93 @@ const colors = {
 };
 
 const Chart = () => {
-    const API_URL = 'https://cxz3619.pythonanywhere.com/covidRecord/';
-    const [loading, setLoading] = useState(true);
-    
-    const [record, setrecord] = useState(
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+  const API_URL = 'https://cxz3619.pythonanywhere.com/covidRecord/';
+  const [loading, setLoading] = useState(true);
 
-    console.log("chart");
+  const [record, setrecord] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
-    const SVGHeight = 300
-    const SVGWidth = 300
- 
+  console.log('chart');
 
-    useEffect(() => {
-        try {
-            fetch(API_URL)
-                .then(response => response.json())
-                .then(data => {
-                    
-                    const mapping_data = data.map(item => Object({ 'date': item.enter_time }));
-                    //날짜필터하는 방법 //data.filter(item => item.enter_time <= "2021/07/25");                     
-                    
-                    var temp_arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                    mapping_data.map(user => {                       
+  const SVGHeight = 300;
+  const SVGWidth = 300;
 
-                        if (parseInt(user.date.substring(11, 13), 10) <= 8)
-                            temp_arr[parseInt(user.date.substring(11, 13), 10) - 6] += 1
-                        if ((parseInt(user.date.substring(11, 13), 10) >= 13)) {
-                            temp_arr[parseInt(user.date.substring(11, 13), 10) - 10] += 1
-                        }
-                    });
-                    console.log("temp_arr:", temp_arr);
-                    setrecord(temp_arr);
+  useEffect(() => {
+    try {
+      fetch(API_URL)
+        .then(response => response.json())
+        .then(data => {
+          const mapping_data = data.map(item =>
+            Object({date: item.enter_time}),
+          );
+          //날짜필터하는 방법 //data.filter(item => item.enter_time <= "2021/07/25");
 
-
-                });
-
-        } catch (e) {
-
-            console.log("error: ", e);
-        }
-    }, []);
-
-     
-    return (
-
-        <View style>
-            <BarChart
-                data={{
-                    labels: ['6', '7', '8', '13', '14', '15', '16', '17', '18', '19', '20', '21'],
-                    datasets: [
-                        {
-                            data: record
-                        },
-                    ],
-                    barColors: ['blue'],
-                }}
-                flatColor={true}
-                width={Dimensions.get('window').width - 16}
-                height={220}
-                showBarTops={false}
-                fromZero={true}
-                chartConfig={{
-                    backgroundColor: 'black',
-                    backgroundGradientFrom: '#eff3ff',
-                    backgroundGradientTo: '#efefef',
-                    fillShadowGradientOpacity: 1,
-                    fillShadowGradient: 'blue',
-                    decimalPlaces: 0,
-                    barRadius: 5,
-                    barPercentage: 0.3,
-                    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                    style: {
-                        borderRadius: 16,
-                    },
-                }}
-            />
-            
-            
-
-        </View>
-
-
-    );
-}
+          var temp_arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          mapping_data.map(user => {
+            if (parseInt(user.date.substring(11, 13), 10) <= 8) {
+              temp_arr[parseInt(user.date.substring(11, 13), 10) - 6] += 1;
+            } else if (parseInt(user.date.substring(11, 13), 10) >= 13) {
+              temp_arr[parseInt(user.date.substring(11, 13), 10) - 10] += 1;
+            }
+          });
+          console.log('temp_arr:', temp_arr);
+          setrecord(temp_arr);
+        });
+    } catch (e) {
+      console.log('error: ', e);
+      throw e;
+    }
+  }, []);
+  const data = {
+    labels: [
+      // eslint-disable-next-line prettier/prettier
+      '6',
+      '7',
+      '8',
+      '13',
+      '14',
+      '15',
+      '16',
+      '17',
+      '18',
+      '19',
+      '20',
+      '21',
+    ],
+    datasets: [
+      {
+        data: record,
+      },
+    ],
+    barColors: ['blue'],
+  };
+  return (
+    <View style>
+      <BarChart
+        data={data}
+        flatColor={true}
+        width={Dimensions.get('window').width - 16}
+        height={220}
+        // height={Dimensions.get('window').width / 2}
+        showBarTops={false}
+        fromZero={true}
+        chartConfig={{
+          backgroundColor: 'black',
+          backgroundGradientFrom: '#eff3ff',
+          backgroundGradientTo: '#efefef',
+          fillShadowGradientOpacity: 1,
+          fillShadowGradient: 'blue',
+          decimalPlaces: 0,
+          barRadius: 5,
+          barPercentage: 0.3,
+          color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+          style: {
+            borderRadius: 16,
+          },
+        }}
+      />
+    </View>
+  );
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
