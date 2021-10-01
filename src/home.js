@@ -100,7 +100,7 @@ const HomeScreen = ({ route, navigation }) => {
           </View>
         </View>
 
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 2,backgroundColor:"blue" }}>
           <View style={styles.container}>
             <View style={styles.radiusbar}>
               <Text style={{ color: 'white' }}>이용시간 분포</Text>
@@ -108,6 +108,7 @@ const HomeScreen = ({ route, navigation }) => {
             <Chart />
           </View>
         </View>
+        
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             activeOpacity={0.8}
@@ -189,7 +190,7 @@ const styles = StyleSheet.create({
     marginTop: 60,
     alignItems: "center",
     justifyContent: "center",
-    
+    backgroundColor:"red"
 
   },
   loading: {

@@ -36,9 +36,9 @@ const Chart = () => {
                     var temp_arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                     mapping_data.map(user => {                       
 
-                        if (parseInt(user.date.substring(11, 13), 10) <= 8)
+                        if (6<= parseInt(user.date.substring(11, 13), 10)&& parseInt(user.date.substring(11, 13), 10)  <= 8)
                             temp_arr[parseInt(user.date.substring(11, 13), 10) - 6] += 1
-                        if ((parseInt(user.date.substring(11, 13), 10) >= 13)) {
+                        if (21>=parseInt(user.date.substring(11, 13), 10) && parseInt(user.date.substring(11, 13), 10) >= 13) {
                             temp_arr[parseInt(user.date.substring(11, 13), 10) - 10] += 1
                         }
                     });
@@ -57,7 +57,7 @@ const Chart = () => {
      
     return (
 
-        <View style={{flex:1,padding:5}}>
+        <View style={{flex:1,padding:5,justifyContent:'center',alignItems:"center"}}>
             <BarChart
                 data={{
                     labels: ['6', '7', '8', '13', '14', '15', '16', '17', '18', '19', '20', '21'],

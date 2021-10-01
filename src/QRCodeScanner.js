@@ -28,12 +28,12 @@ const ScanScreen = () => {
   const [email, setEmail] = useState(null); //email 담아서 fetch(post)때 쓸라고
   const [users, setUsers] = useState([]); //memberData 에서 user정보 받기 위함
   const [photoURL, setphotoURL] = useState(null); //google 이미지
-  const [loading, setLoading] = useState(true);
+  
   const [error, setError] = useState(null);
 
   const [scanned, setScanned] = useState(false);
 
-  const API_URL = 'http://cxz3619.pythonanywhere.com/';
+  const API_URL = 'https://cxz3619.pythonanywhere.com/';
 
   const onSuccess = e => {
     if (e.data.substring(0, 8) == '{"email"') {
@@ -55,7 +55,7 @@ const ScanScreen = () => {
         .then(response => response.json())
         .then(data => {
           console.log('data.phnoe_num:', data.phone_num);
-          setLoading(false);
+         
           console.log('user info:', data);
           setUsers(data);
           try {
