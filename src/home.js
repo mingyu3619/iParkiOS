@@ -100,7 +100,7 @@ const HomeScreen = ({ route, navigation }) => {
           </View>
         </View>
 
-        <View style={{ flex: 2,backgroundColor:"blue" }}>
+        <View style={{ flex: 1.5 }}>
           <View style={styles.container}>
             <View style={styles.radiusbar}>
               <Text style={{ color: 'white' }}>이용시간 분포</Text>
@@ -185,12 +185,12 @@ const styles = StyleSheet.create({
     //height: 1000,
   },
   buttonContainer: {
-    flex: 0.5,
+    flex: 0.3,
     flexDirection: 'row',
     marginTop: 60,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor:"red"
+    
 
   },
   loading: {
