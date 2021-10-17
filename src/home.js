@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     //height: 1000,
   },
   buttonContainer: {
-    flex: 0.5,
+    flex: 0.3,
     flexDirection: 'row',
     marginTop: 60,
     alignItems: 'center',

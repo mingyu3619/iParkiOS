@@ -53,7 +53,6 @@ const ScanScreen = () => {
         .then(response => response.json())
         .then(data => {
           console.log('data.phnoe_num:', data.phone_num);
-
           console.log('user info:', data);
           setUsers(data);
           try {
