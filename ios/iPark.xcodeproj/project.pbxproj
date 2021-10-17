@@ -513,7 +513,7 @@
 				CODE_SIGN_ENTITLEMENTS = iPark/iPark.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = P748RH6RLU;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = iPark/Info.plist;
@@ -545,7 +545,7 @@
 				CODE_SIGN_ENTITLEMENTS = iPark/iPark.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = P748RH6RLU;
 				INFOPLIST_FILE = iPark/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
