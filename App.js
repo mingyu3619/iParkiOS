@@ -15,7 +15,7 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import QRCodeGenerator from './src/QRCodeGenerator';
 import SnsGoogleLogin from './src/GoogleLogin';
 import {roundToNearestPixel} from 'react-native/Libraries/Utilities/PixelRatio';
-import Map from './src/map';
+import Notice from './src/NoticeBoard';
 import Youtube from './src/youtube';
 import Chart from './src/chart';
 import AppleSignIn from './src/appleLogin';
@@ -57,7 +57,7 @@ const App = () => {
         />
         <Stack.Screen name="Chart" component={Chart} />
         <Stack.Screen name="Youtube" component={Youtube} />
-        <Stack.Screen name="Map" component={Map} />
+        <Stack.Screen name="Notice" component={Notice} />
         <Stack.Screen name="QRscan" component={ScanScreen} />
         <Stack.Screen name="QRGenerate" component={QRCodeGenerator} />
         <Stack.Screen name="GoogleSign" component={SnsGoogleLogin} />
