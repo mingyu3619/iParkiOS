@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import 'react-native-gesture-handler';
 import React, {useEffect, useState} from 'react';
 import {
@@ -6,18 +7,19 @@ import {
   Text,
   ActivityIndicator,
   Alert,
-  StatusBar,
   StyleSheet,
   Image,
   TouchableOpacity,
+  ScrollView,
+  RefreshControl,
 } from 'react-native';
 //import {baseProps} from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
-import { GoogleSignin } from '@react-native-community/google-signin';
+import {GoogleSignin} from '@react-native-community/google-signin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Chart from './chart';
 import ProgressCircle from 'react-native-progress-circle';
 
-const HomeScreen = ({ route, navigation }) => {
+const HomeScreen = ({route, navigation}) => {
   const API_URL = 'https://cxz3619.pythonanywhere.com/liveData/';
 
   //const userInfo = route.params; //개인정보
@@ -27,12 +29,25 @@ const HomeScreen = ({ route, navigation }) => {
 
   const [userEmail, setUserEmail] = useState(null);
   const [userPhoto, setUserPhoto] = useState(null);
+
+  const [refreshing, setRefreshing] = useState(false);
+
   AsyncStorage.getItem('Email').then(Email => {
     setUserEmail(Email);
   });
   AsyncStorage.getItem('Photo').then(Photo => {
     setUserPhoto(Photo);
   });
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    fetch(API_URL)
+      .then(response => response.json())
+      .then(data => {
+        setUsers(data);
+        setRefreshing(false);
+      });
+  }, []);
 
   useEffect(() => {
     try {
@@ -54,7 +69,7 @@ const HomeScreen = ({ route, navigation }) => {
     //로그아웃
     try {
       AsyncStorage.setItem('isLogin', 'false');
-      navigation.reset({ routes: [{ name: 'Login' }] });
+      navigation.reset({routes: [{name: 'Login'}]});
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
     } catch (e) {
@@ -72,65 +87,69 @@ const HomeScreen = ({ route, navigation }) => {
   } else {
     return (
       <SafeAreaView style={styles.mainContainer}>
-        <View style={{ flexDirection: 'row', position: "relative", flex: 1 }}>
-          <View style={styles.container}>
-            <View style={styles.radiusbar}>
-              <Text style={{ color: 'white' }}>실시간 이용자</Text>
+        <ScrollView
+          contentContainerStyle={styles.mainContainer}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }>
+          <View style={{flexDirection: 'row', position: 'relative', flex: 1}}>
+            <View style={styles.container}>
+              <View style={styles.radiusbar}>
+                <Text style={{color: 'white'}}>실시간 이용자</Text>
+              </View>
+
+              <ProgressCircle
+                percent={(users.length / 50) * 100}
+                radius={50}
+                borderWidth={8}
+                color="#3399FF"
+                shadowColor="#999"
+                bgColor="#fff">
+                <Text style={{fontSize: 18}}>{users.length} /50</Text>
+              </ProgressCircle>
             </View>
 
-            <ProgressCircle
-              percent={(users.length / 50) * 100}
-              radius={50}
-              borderWidth={8}
-              color="#3399FF"
-              shadowColor="#999"
-              bgColor="#fff">
-              <Text style={{ fontSize: 18 }}>{users.length} /50</Text>
-            </ProgressCircle>
+            <View style={styles.container}>
+              <View style={styles.radiusbar}>
+                <Text style={{color: 'white'}}>유저 프로필</Text>
+              </View>
+              <Image
+                style={{width: 100, height: 100}}
+                source={{uri: userPhoto}}
+              />
+            </View>
           </View>
 
-          <View style={styles.container}>
-            <View style={styles.radiusbar}>
-              <Text style={{ color: 'white' }}>유저 프로필</Text>
+          <View style={{flex: 1}}>
+            <View style={styles.container}>
+              <View style={styles.radiusbar}>
+                <Text style={{color: 'white'}}>이용시간 분포</Text>
+              </View>
+              <Chart />
             </View>
-            <Image
-              style={{ width: 100, height: 100 }}
-              source={{ uri: userPhoto }}
-            />
           </View>
-        </View>
-
-        <View style={{ flex: 1.5 }}>
-          <View style={styles.container}>
-            <View style={styles.radiusbar}>
-              <Text style={{ color: 'white' }}>이용시간 분포</Text>
-            </View>
-            <Chart />
-          </View>
-        </View>
-        
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.button}
-            onPress={() =>
-              //navigation.reset({routes: [{name: 'QRGenerate'}]})
-              navigation.navigate('QRGenerate', {
-                email: userEmail,
-                photo: userPhoto,
-              })
-            }>
-            <Text style={styles.text}>QR Code</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.button}
-            onPress={() =>
-              signOut() ? Alert.alert('Logout success') : Alert.alert('error')
-            }>
-            <Text style={styles.text}>Logout</Text>
-          </TouchableOpacity>
-          {/* <TouchableOpacity
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.button}
+              onPress={() =>
+                //navigation.reset({routes: [{name: 'QRGenerate'}]})
+                navigation.navigate('QRGenerate', {
+                  email: userEmail,
+                  photo: userPhoto,
+                })
+              }>
+              <Text style={styles.text}>QR Code</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.button}
+              onPress={() =>
+                signOut() ? Alert.alert('Logout success') : Alert.alert('error')
+              }>
+              <Text style={styles.text}>Logout</Text>
+            </TouchableOpacity>
+            {/* <TouchableOpacity
               activeOpacity={0.8}
               style={styles.button}
               color="black"
@@ -138,9 +157,10 @@ const HomeScreen = ({ route, navigation }) => {
               onPress={() => navigation.navigate('Map')}>
               <Text style={styles.text}>Center Map</Text>
             </TouchableOpacity> */}
-        </View>
+          </View>
 
-        <View style={styles.footer} />
+          <View style={styles.footer} />
+        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -150,8 +170,6 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     position: 'relative',
-
-
   },
   button: {
     width: 100,
@@ -173,8 +191,8 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
-    padding:2,
-    marginBottom: 5, 
+    padding: 2,
+    marginBottom: 5,
   },
   container: {
     flex: 1,
@@ -188,10 +206,8 @@ const styles = StyleSheet.create({
     flex: 0.3,
     flexDirection: 'row',
     marginTop: 60,
-    alignItems: "center",
-    justifyContent: "center",
-    
-
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   loading: {
     flex: 1,
