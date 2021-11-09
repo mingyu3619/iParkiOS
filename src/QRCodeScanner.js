@@ -3,7 +3,7 @@
 import 'react-native-gesture-handler';
 import Moment from 'react-moment';
 import 'moment-timezone';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   AppRegistry,
@@ -29,16 +29,30 @@ const ScanScreen = () => {
   const [photoURL, setphotoURL] = useState(null); //google 이미지
   const [error, setError] = useState(null);
   const [scanned, setScanned] = useState(false);
-
+  const [state, setState] = useState('');
   const API_URL = 'https://cxz3619.pythonanywhere.com/';
 
   const onSuccess = e => {
+    setUsers([]);
+    setEmail('');
+    setState('');
     if (e.data.substring(0, 8) === '{"email"') {
-      const userInfo = JSON.parse(e.data);
-      setEmail(userInfo.email.replace('.ac.kr', '').toString());
-      //ac.kr 꼴 삭제 --> 장고에서 @korea.ac.kr 꼴 인식 못함(http://163.152.223.34:8000/MemberData/cxz3619@korea일떄나 개인 페이지 인식가능 )
-      setphotoURL(userInfo.photo); //구글 프로필 이미지
+      if (e.data.indexOf('korea.ac.kr') != -1) {
+        const userInfo = JSON.parse(e.data);
+        setEmail(userInfo.email.replace('.ac.kr', '').toString());
+        //ac.kr 꼴 삭제 --> 장고에서 @korea.ac.kr 꼴 인식 못함(http://163.152.223.34:8000/MemberData/cxz3619@korea일떄나 개인 페이지 인식가능 )
+        setphotoURL(userInfo.photo); //구글 프로필 이미지
+        
+      }
+      if (e.data.indexOf('gmail.com') != -1) {
+        const userInfo = JSON.parse(e.data);
+        setEmail(userInfo.email.replace('.com', '').toString());
+        //gmail.com 에서 .com 삭제 
+        setphotoURL(userInfo.photo); //구글 프로필 이미지
+        
+      }
       scanned ? setScanned(false) : setScanned(true); //큐알 인식시 state 바꿔주기
+      
     }
   };
   // 스캐너 초기화  부분
@@ -99,13 +113,16 @@ const ScanScreen = () => {
                       throw error;
                     });
                   SoundPlayer.playSoundFile('out', 'mp3'); //퇴장 시 소리 남
+                  setState('퇴장');
+
                 } else if (
                   Object.entries(data_live).toString() ===
                   'student_num,This field is required.'
                 ) {
                   SoundPlayer.playSoundFile('error', 'mp3'); //데이터 베이스에 없는 사람 출입 시
+
                 } else {
-                  SoundPlayer.playSoundFile('in', 'mp3'); // 정상적인 입장
+
                   console.log(API_URL + 'covidRecord/');
                   fetch(API_URL + 'covidRecord/', {
                     method: 'POST',
@@ -127,6 +144,8 @@ const ScanScreen = () => {
                       console.log('covid_error:', error);
                       throw error;
                     });
+                  SoundPlayer.playSoundFile('in', 'mp3'); // 정상적인 입장
+                  setState('입장');
                 }
               })
               .catch(error => {
@@ -171,30 +190,32 @@ const ScanScreen = () => {
         showMarker={true} //리더기에 초록색 사각형
         reactivate={true} //카메라 재 반응
         reactivateTimeout={5000} //한번 반응하면 5초후 반응
-        cameraStyle={{height: SCREEN_HEIGHT}}
+        cameraStyle={{ height: SCREEN_HEIGHT }}
         customMarker={
           <View style={styles.rectangleContainer}>
             <View style={styles.topOverlay}>
               <Image
                 resizeMode="cover"
-                style={{width: 100, height: 100, alignItems: 'flex-end'}}
-                source={{uri: photoURL}}
+                style={{ width: 100, height: 100, alignItems: 'flex-end' }}
+                source={{ uri: photoURL }}
               />
-              <Text style={{fontSize: 20, color: 'white'}}>
+              <Text style={{ fontSize: 20, color: 'white' }}>
                 {console.log(typeof users.email)}
                 {users.email ? (
                   <Text>
                     {JSON.stringify(users.name)}
                     {JSON.stringify(users.reserve_product)}
                     {JSON.stringify(users.student_num)}
+                    {state}
                   </Text>
                 ) : (
                   <Text> QR CODE를 인식 시켜주세요.! </Text>
+                  
                 )}
               </Text>
             </View>
 
-            <View style={{flexDirection: 'row'}}>
+            <View style={{ flexDirection: 'row' }}>
               <View style={styles.leftAndRightOverlay} />
 
               <View style={styles.rectangle}>

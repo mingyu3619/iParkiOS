@@ -1,14 +1,14 @@
 import React from 'react';
 //import QRCode from 'react-native-qrcode-generator';
 import QRCode from 'react-native-qrcode-svg';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View,Text} from 'react-native';
 
 const QRCodeGenerator = ({route}) => {
   const userInfo = route.params;
 
   return (
     <View style={styles.container}>
-      {/* <Text>{userInfo.email}</Text> */}
+      <Text>{userInfo.email}</Text>
       {/* <Image style={{width: 30, height: 30}} source={{uri: userInfo.photo}} /> */}
 
       <QRCode
