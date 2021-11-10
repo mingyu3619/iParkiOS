@@ -1,7 +1,7 @@
 import React from 'react';
 //import QRCode from 'react-native-qrcode-generator';
 import QRCode from 'react-native-qrcode-svg';
-import {StyleSheet, View,Text} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 
 const QRCodeGenerator = ({route}) => {
   const userInfo = route.params;

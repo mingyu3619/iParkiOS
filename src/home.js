@@ -149,14 +149,14 @@ const HomeScreen = ({route, navigation}) => {
               }>
               <Text style={styles.text}>Logout</Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               activeOpacity={0.8}
               style={styles.button}
               color="black"
               title="notice"
               onPress={() => navigation.navigate('Notice')}>
               <Text style={styles.text}>아이파크 공지</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
 
           <View style={styles.footer} />
