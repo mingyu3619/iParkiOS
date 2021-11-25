@@ -1,9 +1,9 @@
 import 'react-native-gesture-handler';
-import React, {Component} from 'react';
-import {StyleSheet, Button, Alert} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import React, { Component } from 'react';
+import { StyleSheet, Button, Alert } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 // 네비게이션 구조 & 상태 관리 (모든 네비게이션 구조는 이 태크 아래 들어가야한다.)
-import {createStackNavigator} from '@react-navigation/stack'; //
+import { createStackNavigator } from '@react-navigation/stack'; //
 import HomeScreen from './src/home';
 
 //import LoginButton from './src/loginButton';
@@ -14,8 +14,9 @@ import ScanScreen from './src/QRCodeScanner';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import QRCodeGenerator from './src/QRCodeGenerator';
 import SnsGoogleLogin from './src/GoogleLogin';
-import {roundToNearestPixel} from 'react-native/Libraries/Utilities/PixelRatio';
-import Notice from './src/NoticeBoard';
+import { roundToNearestPixel } from 'react-native/Libraries/Utilities/PixelRatio';
+import NoticeBoard from './src/NoticeBoard';
+import NoticeView from './src/NoticeArticle';
 import Youtube from './src/youtube';
 import Chart from './src/chart';
 import AppleSignIn from './src/appleLogin';
@@ -43,7 +44,7 @@ const App = () => {
         <Stack.Screen
           name="Login"
           component={LoginScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Screen name="admin" component={AdminScreen} />
         {/* <Stack.Screen name="ScanScreen" component={ScanScreen} /> */}
@@ -57,7 +58,9 @@ const App = () => {
         />
         <Stack.Screen name="Chart" component={Chart} />
         <Stack.Screen name="Youtube" component={Youtube} />
-        <Stack.Screen name="Notice" component={Notice} />
+        <Stack.Screen name="NoticeBoard" component={NoticeBoard} options={{ title: '공지사항' }} />
+        {/* <Stack.Screen name="NoticeView" component={NoticeView} options={({ route }) => ({ title: route.params.title })}/> */}
+        <Stack.Screen name="NoticeView" component={NoticeView} options={{title: ''}}/>
         <Stack.Screen name="QRscan" component={ScanScreen} />
         <Stack.Screen name="QRGenerate" component={QRCodeGenerator} />
         <Stack.Screen name="GoogleSign" component={SnsGoogleLogin} />

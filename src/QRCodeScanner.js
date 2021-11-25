@@ -206,6 +206,7 @@ const ScanScreen = () => {
                     {JSON.stringify(users.name)}
                     {JSON.stringify(users.reserve_product)}
                     {JSON.stringify(users.student_num)}
+                    {"\n"}
                     {state}
                   </Text>
                 ) : (
