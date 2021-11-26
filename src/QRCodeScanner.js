@@ -1,8 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 'use strict';
 import 'react-native-gesture-handler';
-import Moment from 'react-moment';
-import 'moment-timezone';
 import React, { useEffect, useState } from 'react';
 
 import {
@@ -31,11 +29,11 @@ const ScanScreen = () => {
   const [scanned, setScanned] = useState(false);
   const [state, setState] = useState('');
   const API_URL = 'https://cxz3619.pythonanywhere.com/';
-
   const onSuccess = e => {
     setUsers([]);
     setEmail('');
     setState('');
+    console.log("onsucess.e:",e);
     if (e.data.substring(0, 8) === '{"email"') {
       if (e.data.indexOf('korea.ac.kr') != -1) {
         const userInfo = JSON.parse(e.data);
@@ -124,6 +122,7 @@ const ScanScreen = () => {
                 } else {
 
                   console.log(API_URL + 'covidRecord/');
+                  // 코로나 기록
                   fetch(API_URL + 'covidRecord/', {
                     method: 'POST',
                     headers: {
@@ -206,8 +205,7 @@ const ScanScreen = () => {
                     {JSON.stringify(users.name)}
                     {JSON.stringify(users.reserve_product)}
                     {JSON.stringify(users.student_num)}
-                    {"\n"}
-                    {state}
+                    "{state}"
                   </Text>
                 ) : (
                   <Text> QR CODE를 인식 시켜주세요.! </Text>
