@@ -11,7 +11,7 @@ import {
   Text,
   Dimensions,
   Image,
-  View,
+  View, Alert
 } from 'react-native';
 import SoundPlayer from 'react-native-sound-player';
 import QRCodeScanner from 'react-native-qrcode-scanner';
@@ -27,6 +27,7 @@ const ScanScreen = () => {
   const [email, setEmail] = useState(''); //email 담아서 fetch(post)때 쓸라고
   const [users, setUsers] = useState([]); //memberData 에서 user정보 받기 위함
   const [photoURL, setphotoURL] = useState(null); //google 이미지
+  const [vaccine, setVaccine] = useState(false);
   const [error, setError] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [state, setState] = useState('');
@@ -36,30 +37,27 @@ const ScanScreen = () => {
     setUsers([]);
     setEmail('');
     setState('');
+
     if (e.data.substring(0, 8) === '{"email"') {
       if (e.data.indexOf('korea.ac.kr') != -1) {
         const userInfo = JSON.parse(e.data);
         setEmail(userInfo.email.replace('.ac.kr', '').toString());
         //ac.kr 꼴 삭제 --> 장고에서 @korea.ac.kr 꼴 인식 못함(http://163.152.223.34:8000/MemberData/cxz3619@korea일떄나 개인 페이지 인식가능 )
         setphotoURL(userInfo.photo); //구글 프로필 이미지
-        
       }
       if (e.data.indexOf('gmail.com') != -1) {
         const userInfo = JSON.parse(e.data);
         setEmail(userInfo.email.replace('.com', '').toString());
         //gmail.com 에서 .com 삭제 
         setphotoURL(userInfo.photo); //구글 프로필 이미지
-        
       }
       scanned ? setScanned(false) : setScanned(true); //큐알 인식시 state 바꿔주기
-      
     }
   };
   // 스캐너 초기화  부분
   let scanner;
 
   // 스캐너 초기화  부분
-
   useEffect(() => {
     try {
       console.log(API_URL + 'memberData/' + email.replace('"', ''));
@@ -70,6 +68,13 @@ const ScanScreen = () => {
           console.log('user info:', data);
           setUsers(data);
           try {
+            //백신 확인
+            if (data.covid_vaccine !== true) {
+              console.log('test covid ' + data.covid_vaccine)
+              setVaccine(data.covid_vaccine)
+              SoundPlayer.playSoundFile('error', 'mp3'); //잘못된 입장 요청
+              throw new Error('covid test result missing');
+            }
             fetch(API_URL + 'liveData/', {
               // MemberData에 있는 정보로 liveData(실시간인원 post)
               method: 'POST',
@@ -114,13 +119,11 @@ const ScanScreen = () => {
                     });
                   SoundPlayer.playSoundFile('out', 'mp3'); //퇴장 시 소리 남
                   setState('퇴장');
-
                 } else if (
                   Object.entries(data_live).toString() ===
                   'student_num,This field is required.'
                 ) {
                   SoundPlayer.playSoundFile('error', 'mp3'); //데이터 베이스에 없는 사람 출입 시
-
                 } else {
 
                   console.log(API_URL + 'covidRecord/');
@@ -154,22 +157,19 @@ const ScanScreen = () => {
               });
           } catch (e) {
             setError(e);
-            console.log('liveData 접속 error:', error);
+            console.log('liveData 접속 error:', e.message);
             throw error;
           }
         });
     } catch (e) {
       setError(e);
-      throw e;
+      // throw e;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scanned]);
 
   /**
    * function for QRC Scanner slide animation
-   * @param {*} translationType
-   * @param {*} fromValue
-   * @returns
    */
   const makeSlideOutTranslation = (translationType, fromValue) => {
     return {
@@ -199,21 +199,26 @@ const ScanScreen = () => {
                 style={{ width: 100, height: 100, alignItems: 'flex-end' }}
                 source={{ uri: photoURL }}
               />
-              <Text style={{ fontSize: 20, color: 'white' }}>
+              <View>
                 {console.log(typeof users.email)}
                 {users.email ? (
-                  <Text>
-                    {JSON.stringify(users.name)}
-                    {JSON.stringify(users.reserve_product)}
-                    {JSON.stringify(users.student_num)}
-                    {"\n"}
-                    {state}
-                  </Text>
+                  <View>
+                    <Text style={styles.resultMsg}>
+                      이름 : {JSON.stringify(users.name).slice(1, -1)}{'\n'}
+                      회원권 : {JSON.stringify(users.reserve_product).slice(1, -1)}{'\n'}
+                      학번 : {JSON.stringify(users.student_num).slice(1, -1)}{'\n'}
+                      백신 접종 : {users.covid_vaccine ? '2차 접종 확인' : '2차 접종 미확인'}
+                    </Text>
+                    <Text style={styles.stateMsg}>
+                      {state}
+                    </Text>
+                  </View>
                 ) : (
-                  <Text> QR CODE를 인식 시켜주세요.! </Text>
-                  
+                  <View>
+                    <Text style={styles.resultMsg}> QR CODE를 인식 시켜주세요.! </Text>
+                  </View>
                 )}
-              </Text>
+              </View>
             </View>
 
             <View style={{ flexDirection: 'row' }}>
@@ -317,6 +322,19 @@ const styles = StyleSheet.create({
     height: scanBarHeight,
     backgroundColor: scanBarColor,
   },
+
+  resultMsg: {
+    fontSize: 17,
+    color: 'white',
+    textAlign: 'center',
+  },
+
+  stateMsg: {
+    fontSize: 20,
+    color: 'pink',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  }
 });
 
 AppRegistry.registerComponent('default', () => ScanScreen);
