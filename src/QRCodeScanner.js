@@ -187,7 +187,7 @@ const ScanScreen = () => {
         onRead={e => onSuccess(e)} //QR코드 읽으면 어떤 함수 실행할지
         showMarker={true} //리더기에 초록색 사각형
         reactivate={true} //카메라 재 반응
-        reactivateTimeout={5000} //한번 반응하면 5초후 반응
+        reactivateTimeout={3000} //한번 반응하면 5초후 반응
         cameraStyle={{ height: SCREEN_HEIGHT }}
         customMarker={
           <View style={styles.rectangleContainer}>
