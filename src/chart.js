@@ -1,10 +1,10 @@
 import 'react-native-gesture-handler';
 
-import React, {useEffect, useState} from 'react';
-import {View, StatusBar, StyleSheet, Dimensions} from 'react-native';
-import 'moment-timezone';
+import React, { useEffect, useState } from 'react';
+import { View, StatusBar, StyleSheet, Dimensions } from 'react-native';
+import moment from 'moment-timezone';
 
-import {BarChart} from 'react-native-chart-kit';
+import { BarChart } from 'react-native-chart-kit';
 
 const GRAPH_MARGIN = 20;
 const colors = {
@@ -24,25 +24,22 @@ const Chart = () => {
     try {
       fetch(API_URL)
         .then(response => response.json())
-        .then(data => {
-          const mapping_data = data.map(item =>
-            Object({date: item.enter_time}),
-          );
-          //날짜필터하는 방법 //data.filter(item => item.enter_time <= "2021/07/25");
-
+        .then(data => {       
+          const mapping_data =data.filter(item => moment().add(-7,'d').format('YYYY/MM/DD')<=item.enter_time&&item.enter_time<=moment().format('YYYY/MM/DD'));
           var temp_arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
           mapping_data.map(user => {
+
             if (
-              parseInt(user.date.substring(11, 13), 10) >= 6 &&
-              parseInt(user.date.substring(11, 13), 10) <= 8
+              parseInt(user.enter_time.substring(11, 13), 10) >= 6 &&
+              parseInt(user.enter_time.substring(11, 13), 10) <= 8
             ) {
-              temp_arr[parseInt(user.date.substring(11, 13), 10) - 6] += 1;
+              temp_arr[parseInt(user.enter_time.substring(11, 13), 10) - 6] += 1;
             }
             if (
-              parseInt(user.date.substring(11, 13), 10) <= 21 &&
-              parseInt(user.date.substring(11, 13), 10) >= 13
+              parseInt(user.enter_time.substring(11, 13), 10) <= 21 &&
+              parseInt(user.enter_time.substring(11, 13), 10) >= 13
             ) {
-              temp_arr[parseInt(user.date.substring(11, 13), 10) - 10] += 1;
+              temp_arr[parseInt(user.enter_time.substring(11, 13), 10) - 10] += 1;
             }
           });
           console.log('temp_arr:', temp_arr);
@@ -54,12 +51,12 @@ const Chart = () => {
   }, []);
 
   return (
-    <View style={{flex: 1, padding: 5}}>
+    <View style={{ flex: 1, padding: 5 }}>
       <BarChart
         data={{
           labels: [
             // eslint-disable-next-line prettier/prettier
-            '6','7','8','13','14','15','16','17','18','19','20','21',
+            '6', '7', '8', '13', '14', '15', '16', '17', '18', '19', '20', '21',
           ],
           datasets: [
             {
