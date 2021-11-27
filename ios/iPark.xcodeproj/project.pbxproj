@@ -12,6 +12,9 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		6C21A2352685ED8600F385D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C21A2342685ED8600F385D0 /* GoogleService-Info.plist */; };
+		6C932C632750F0070011B2AF /* out.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6C932C602750F0070011B2AF /* out.mp3 */; };
+		6C932C642750F0070011B2AF /* error.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6C932C612750F0070011B2AF /* error.mp3 */; };
+		6C932C652750F0070011B2AF /* in.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6C932C622750F0070011B2AF /* in.mp3 */; };
 		6F3657CF46B638C5BD08FADC /* libPods-iPark-iParkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ED911F80457FAEDD4237F57 /* libPods-iPark-iParkTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8399C0EDB023D4787A22F154 /* libPods-iPark.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 432A04857D32EBB8654F3431 /* libPods-iPark.a */; };
@@ -43,6 +46,9 @@
 		5ED911F80457FAEDD4237F57 /* libPods-iPark-iParkTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iPark-iParkTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C21A2342685ED8600F385D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6C72DD2D26E73A5500CB6B81 /* iPark.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = iPark.entitlements; path = iPark/iPark.entitlements; sourceTree = "<group>"; };
+		6C932C602750F0070011B2AF /* out.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = out.mp3; path = ../android/app/src/main/res/raw/out.mp3; sourceTree = "<group>"; };
+		6C932C612750F0070011B2AF /* error.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = error.mp3; path = ../android/app/src/main/res/raw/error.mp3; sourceTree = "<group>"; };
+		6C932C622750F0070011B2AF /* in.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = in.mp3; path = ../android/app/src/main/res/raw/in.mp3; sourceTree = "<group>"; };
 		7D32404732743438E2F7570F /* Pods-iPark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iPark.release.xcconfig"; path = "Target Support Files/Pods-iPark/Pods-iPark.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = iPark/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AF584E71308BF78C1E3F8EFD /* Pods-iPark-iParkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iPark-iParkTests.release.xcconfig"; path = "Target Support Files/Pods-iPark-iParkTests/Pods-iPark-iParkTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -121,6 +127,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				6C932C612750F0070011B2AF /* error.mp3 */,
+				6C932C622750F0070011B2AF /* in.mp3 */,
+				6C932C602750F0070011B2AF /* out.mp3 */,
 				13B07FAE1A68108700A75B9A /* iPark */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* iParkTests */,
@@ -206,7 +215,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1300;
+				LastUpgradeCheck = 1310;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -250,8 +259,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				6C932C642750F0070011B2AF /* error.mp3 in Resources */,
+				6C932C632750F0070011B2AF /* out.mp3 in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				6C21A2352685ED8600F385D0 /* GoogleService-Info.plist in Resources */,
+				6C932C652750F0070011B2AF /* in.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,7 +525,7 @@
 				CODE_SIGN_ENTITLEMENTS = iPark/iPark.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P748RH6RLU;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = iPark/Info.plist;
@@ -521,7 +533,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -532,6 +544,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -545,14 +558,14 @@
 				CODE_SIGN_ENTITLEMENTS = iPark/iPark.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P748RH6RLU;
 				INFOPLIST_FILE = iPark/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -562,6 +575,7 @@
 				PRODUCT_NAME = iPark;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
