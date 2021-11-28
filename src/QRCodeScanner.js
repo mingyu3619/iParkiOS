@@ -205,7 +205,7 @@ const ScanScreen = () => {
                       이름 : {JSON.stringify(users.name).slice(1, -1)}{'\n'}
                       회원권 : {JSON.stringify(users.reserve_product).slice(1, -1)}{'\n'}
                       학번 : {JSON.stringify(users.student_num).slice(1, -1)}{'\n'}
-                      백신 접종 : {users.covid_vaccine ? '2차 접종 확인' : '2차 접종 미확인'}
+                      백신 접종 : {users.covid_vaccine ? '2차 접종 확인 ✅' : '2차 접종 미확인 🚫'}
                     </Text>
                     <Text style={styles.stateMsg}>
                       {state}
