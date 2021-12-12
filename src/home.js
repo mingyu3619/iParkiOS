@@ -109,15 +109,16 @@ const HomeScreen = ({route, navigation}) => {
               </ProgressCircle>
             </View>
 
-            <View style={styles.container}>
+            {/* <View style={styles.container}>
               <View style={styles.radiusbar}>
                 <Text style={{color: 'white'}}>유저 프로필</Text>
               </View>
               <Image
                 style={{width: 100, height: 100}}
-                source={{uri: userPhoto}}
+                // source={{uri: userPhoto}}
+                source={require('./assets/images/checked.png')}
               />
-            </View>
+            </View> */}
           </View>
 
           <View style={{flex: 1}}>

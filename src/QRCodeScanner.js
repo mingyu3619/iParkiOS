@@ -69,8 +69,14 @@ const ScanScreen = () => {
             if (data.covid_vaccine !== true) {
               console.log('test covid ' + data.covid_vaccine)
               setVaccine(data.covid_vaccine)
-              SoundPlayer.playSoundFile('error', 'mp3'); //잘못된 입장 요청
+              SoundPlayer.playSoundFile('error', 'mp3'); //잘못된 입장 요청             
               throw new Error('covid test result missing');
+            }
+            if(data.image=='https://cxz3619.pythonanywhere.com/media/default.jpg'){
+              console.log("data.image:",data.image);
+              SoundPlayer.playSoundFile('error', 'mp3');
+              Alert.alert("프로필 사진 미등록자입니다.")
+              throw new Error('err:프로필 사진 미등록자입니다.');
             }
             fetch(API_URL + 'liveData/', {
               // MemberData에 있는 정보로 liveData(실시간인원 post)
@@ -195,7 +201,7 @@ const ScanScreen = () => {
               <Image
                 resizeMode="cover"
                 style={{ width: 100, height: 100, alignItems: 'flex-end' }}
-                source={{ uri: photoURL }}
+                source={{ uri: users.image }}
               />
               <View>
                 {console.log(typeof users.email)}
