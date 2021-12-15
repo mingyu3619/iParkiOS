@@ -4,6 +4,7 @@ import SnsGoogleLogin from './GoogleLogin';
 import AppleSignIn from './appleLogin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import { Linking } from 'react-native';
 const LoginScreen = ({navigation}) => {
   /*
   const [userEmail, setUserEmail] = useState(null);
@@ -43,7 +44,8 @@ const LoginScreen = ({navigation}) => {
       <Text style={styles.text}>Please sign in using korea univ email</Text>
       <View style={styles.buttonContainer}>
         <AppleSignIn />
-        <SnsGoogleLogin />
+        <SnsGoogleLogin /> 
+        <Text style={{color:'white' , fontSize:10}}  onPress={()=>Linking.openURL("https://kuipark.blogspot.com/2021/07/ipark-ipakradmin-30.html")}>개인정보처리방침</Text>       
         <TouchableOpacity
           style={styles.button}
           activeOpacity={0.8}
@@ -85,6 +87,7 @@ const styles = StyleSheet.create({
     // flexDirection: 'column',
     // justifyContent: 'space-between',
     margin: 30,
+    alignItems:'center'
   },
   button: {
     width: 150,

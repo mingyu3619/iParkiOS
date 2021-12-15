@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import 'react-native-gesture-handler';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   View,
@@ -14,26 +14,26 @@ import {
   RefreshControl,
 } from 'react-native';
 //import {baseProps} from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
-import {GoogleSignin} from '@react-native-community/google-signin';
+import { GoogleSignin } from '@react-native-community/google-signin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Chart from './chart';
 import ProgressCircle from 'react-native-progress-circle';
 
-const HomeScreen = ({route, navigation}) => {
+const HomeScreen = ({ route, navigation }) => {
   const API_URL = 'https://cxz3619.pythonanywhere.com/liveData/';
 
   //const userInfo = route.params; //개인정보
   const [users, setUsers] = useState([]); //현재 몇명있는지 정보
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const [userEmail, setUserEmail] = useState(null);
+  const [users_member, setUsers_member] = useState([]);
+  const [Email, setEmail] = useState(null);
   const [userPhoto, setUserPhoto] = useState(null);
 
   const [refreshing, setRefreshing] = useState(false);
 
   AsyncStorage.getItem('Email').then(Email => {
-    setUserEmail(Email);
+    setEmail(Email);
   });
   AsyncStorage.getItem('Photo').then(Photo => {
     setUserPhoto(Photo);
@@ -63,13 +63,39 @@ const HomeScreen = ({route, navigation}) => {
       setError(e);
       throw e;
     }
+
+    AsyncStorage.getItem('Email').then(Email => {    
+    
+    try {
+      console.log(Email)
+      if (Email.indexOf('korea.ac.kr') != -1) {
+        email_modify = Email.replace('.ac.kr', '');
+      }
+      if (Email.indexOf('.com') != -1) {
+        email_modify = Email.replace('.com', '');
+      }      
+      console.log(email_modify)
+
+      fetch("http://cxz3619.pythonanywhere.com/memberData/" + email_modify)
+        .then(response => response.json())
+        .then(data_member => {
+          // data_member.filter()
+          setUsers_member(data_member);
+        });
+    }
+    catch (e) {
+      setError(e);
+      throw (e)
+    }
+
+  });
   }, [error]);
 
   async function signOut() {
     //로그아웃
     try {
       AsyncStorage.setItem('isLogin', 'false');
-      navigation.reset({routes: [{name: 'Login'}]});
+      navigation.reset({ routes: [{ name: 'Login' }] });
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
     } catch (e) {
@@ -92,10 +118,10 @@ const HomeScreen = ({route, navigation}) => {
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }>
-          <View style={{flexDirection: 'row', position: 'relative', flex: 1}}>
+          <View style={{ flexDirection: 'row', position: 'relative', flex: 1 }}>
             <View style={styles.container}>
               <View style={styles.radiusbar}>
-                <Text style={{color: 'white'}}>실시간 이용자</Text>
+                <Text style={{ color: 'white' }}>실시간 이용자</Text>
               </View>
 
               <ProgressCircle
@@ -105,26 +131,26 @@ const HomeScreen = ({route, navigation}) => {
                 color="#3399FF"
                 shadowColor="#999"
                 bgColor="#fff">
-                <Text style={{fontSize: 18}}>{users.length} /50</Text>
+                <Text style={{ fontSize: 18 }}>{users.length} /50</Text>
               </ProgressCircle>
             </View>
 
-            {/* <View style={styles.container}>
-              <View style={styles.radiusbar}>
-                <Text style={{color: 'white'}}>유저 프로필</Text>
-              </View>
-              <Image
-                style={{width: 100, height: 100}}
-                // source={{uri: userPhoto}}
-                source={require('./assets/images/checked.png')}
-              />
-            </View> */}
-          </View>
-
-          <View style={{flex: 1}}>
             <View style={styles.container}>
               <View style={styles.radiusbar}>
-                <Text style={{color: 'white'}}>이용시간 분포</Text>
+                <Text style={{ color: 'white' }}>유저 프로필</Text>
+              </View>
+              <Image
+                style={{ width: 100, height: 100 }}
+                source={{ uri: users_member.image }}
+              // source={require('./assets/images/checked.png')}
+              />
+            </View>
+          </View>
+
+          <View style={{ flex: 1 }}>
+            <View style={styles.container}>
+              <View style={styles.radiusbar}>
+                <Text style={{ color: 'white' }}>이용시간 분포</Text>
               </View>
               <Chart />
             </View>
@@ -136,7 +162,7 @@ const HomeScreen = ({route, navigation}) => {
               onPress={() =>
                 //navigation.reset({routes: [{name: 'QRGenerate'}]})
                 navigation.navigate('QRGenerate', {
-                  email: userEmail,
+                  email: Email,
                   photo: userPhoto,
                 })
               }>
