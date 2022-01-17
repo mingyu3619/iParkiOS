@@ -9,6 +9,7 @@ Korea University IPark Health Center App
 # Apple App Store & Google Play Store Release
 
 Android : https://play.google.com/store/apps/details?id=com.ipark_ku
+
 iOS : https://apps.apple.com/kr/app/%EA%B3%A0%EB%A0%A4%EB%8C%80%ED%95%99%EA%B5%90-ipark/id1584807737
 
 # 기능
