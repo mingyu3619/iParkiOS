@@ -6,13 +6,22 @@ Korea University IPark Health Center App
 
 본 프로젝트는 react native App과 django 관리자 페이지로 이루져있습니다.
 
-# Apple App Store & Google Play Store Release
+## Apple App Store & Google Play Store Release
 
 Android : https://play.google.com/store/apps/details?id=com.ipark_ku
 
 iOS : https://apps.apple.com/kr/app/%EA%B3%A0%EB%A0%A4%EB%8C%80%ED%95%99%EA%B5%90-ipark/id1584807737
 
-# 기능
+## 설치
+
+'''
+git clone https://github.com/mingyu3619/iParkiOS.git
+npm install
+//gradle.properties 내의 java 버전 수정
+'''
+
+
+## 기능
 
 + 주요 기능
 ![image](https://user-images.githubusercontent.com/86222639/149765931-9b31945d-f95a-461f-9a69-19acc04fcd3d.png)
