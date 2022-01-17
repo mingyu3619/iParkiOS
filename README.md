@@ -65,5 +65,8 @@ iOS : https://apps.apple.com/kr/app/%EA%B3%A0%EB%A0%A4%EB%8C%80%ED%95%99%EA%B5%9
 
 
 ## Tech Stack 
-- React Natvie, Django, SQLite, Django Restframework
+- React Natvie
+- Django
+- Django admin
+- Django Restframework
 
