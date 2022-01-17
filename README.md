@@ -15,13 +15,13 @@ iOS : https://apps.apple.com/kr/app/%EA%B3%A0%EB%A0%A4%EB%8C%80%ED%95%99%EA%B5%9
 ## 설치
 
 
-'''C
+```
 
   git clone https://github.com/mingyu3619/iParkiOS.git
   npm install
   //gradle.properties 내의 java 버전 수정
 
-'''
+```
 
 
 ## 기능
